@@ -1,11 +1,16 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
-    entry: "./src/index.js",
+    const PATHS = {
+    source: path.join(__dirname, 'src'),
+    build: path.join(__dirname, 'build')
+};
+
+const common = {
+    entry: PATHS.source + "/index.js",
     output: {
-        path: path.join(__dirname, "/dist"),
-        filename: "index_bundle.js",
+        path: PATHS.build,
+        filename: "[name].js",
     },
     module: {
         rules: [
@@ -23,4 +28,24 @@ module.exports = {
             template: './src/index.html'
         })
     ]
+};
+
+const developmentConfig = {
+    devServer: {
+        stats: 'errors-only',
+        port: 9000
+    }
+};
+
+module.exports = function (env) {
+    if (env === 'production') {
+        return common;
+    }
+    if (env === 'development') {
+        return Object.assign(
+            {},
+            common,
+            developmentConfig
+        )
+    }
 };
