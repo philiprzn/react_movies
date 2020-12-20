@@ -21,6 +21,10 @@ const common = {
                     loader: "babel-loader",
                 },
             },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
         ],
     },
     plugins: [
