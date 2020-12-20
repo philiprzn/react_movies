@@ -1,5 +1,12 @@
+* {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
 .app-wrapper {
-    width: 1200px;
     max-width: 1200px;
     margin: 0 auto;
+    background: bisque;
+    height: 100%;
 }

@@ -1,11 +1,20 @@
 import React, { Component } from "react";
-// import  styles from 'app.css';
+import './app.css';
+import Header from "./../components/Header/Header"
+import Footer from "./../components/Footer/Footer"
+import MovieList from "./MoviesList/MovieList";
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 
 export default class App extends Component {
     render() {
         return (
-            <div>
-                <h1 style={{color: "red"}}>Hello World!</h1>
+            <div className="app-wrapper">
+                <Header/>
+                <ErrorBoundary>
+                    <MovieList />
+                </ErrorBoundary>
+                <MovieList />
+                <Footer />
             </div>
         );
     }
