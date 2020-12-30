@@ -4,6 +4,13 @@
     background: #8b6c81;
     margin: 10px;
     text-align: center;
-    line-height: 120px;
     color: white;
+}
+
+.button {
+    width: 100px;
+    max-width: 100px;
+    height: 40px;
+    background: #eeeeee;
+    cursor: pointer;
 }

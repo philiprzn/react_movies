@@ -1,9 +1,10 @@
 import React from 'react';
 import './movieList.css';
 import MovieCard from "../MovieCard/MovieCard";
-import movies from './../../../movies';
 
-const MovieList = () => {
+const MovieList = (props) => {
+    const { movies } = props;
+
     const Movies = movies.map(({ title, description, id }) =>
         <MovieCard title={title} description={description} key={id}/>
     );
