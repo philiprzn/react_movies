@@ -5,6 +5,7 @@ import Footer from "./../components/Footer/Footer"
 import MovieList from "./MoviesList/MovieList";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 // import movies from './../../movies';
+import ModalWindow from './../components/ModalWindow/ModalWindow'
 
 export default class App extends Component {
    constructor(props){
@@ -18,6 +19,7 @@ export default class App extends Component {
        };
 
        this.openModal = this.openModal.bind(this);
+       this.closeModal = this.closeModal.bind(this);
    }
 
     openModal() {
@@ -28,12 +30,18 @@ export default class App extends Component {
         }));
     };
 
-    render() {
-        console.log(this.state);
+    closeModal() {
+        this.setState((state) => ({
+            app: {
+                isModalOpen: false
+            }
+        }));
+    };
 
+    render() {
         const { movies, app } = this.state;
         const { isModalOpen } = app;
-        const { openModal } = this;
+        const { openModal, closeModal } = this;
 
         return (
             <div className="app-wrapper">
@@ -41,7 +49,7 @@ export default class App extends Component {
                 <ErrorBoundary>
                     <MovieList />
                 </ErrorBoundary>
-                {isModalOpen ? <h1>Modal Open</h1> : <h2>Modal Close</h2>}
+                {isModalOpen ?  <ModalWindow closeModal={closeModal}/> : <h2>Modal Close</h2>}
                 <MovieList movies={movies}/>
                 <Footer />
             </div>
