@@ -1,0 +1,11 @@
+.delete-modal-window {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 300px;
+    height: 200px;
+    background: #c8c8c8;
+    margin: 0 auto;
+    margin-top: 10%;
+}

@@ -1,0 +1,12 @@
+.create-movie-modal-window {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    width: 600px;
+    /*height: 200px;*/
+    background: #c8c8c8;
+    margin: 0 auto;
+    margin-top: 10%;
+}

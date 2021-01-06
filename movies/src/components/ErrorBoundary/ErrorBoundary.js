@@ -9,7 +9,7 @@ const ErrorBoundary = (props) => {
         )
     };
 
-    let isEverythingOk = false;
+    let isEverythingOk = true;
 
     return (
         <>
