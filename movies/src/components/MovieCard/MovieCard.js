@@ -2,7 +2,7 @@ import React from 'react';
 import './movieCard.css';
 import PropTypes from 'prop-types';
 
-const MovieCard = ({title, description, deleteMovie, openModal, id }) => {
+const MovieCard = ({title, description, deleteMovie, openModal, id, editMovie }) => {
     return (
         <div className="moviecard">
             <h3>{title}</h3>
@@ -14,7 +14,7 @@ const MovieCard = ({title, description, deleteMovie, openModal, id }) => {
                         deleteMovie={deleteMovie}
                         onClick={() => openModal(id)}
                 >Delete</button>
-                <button className="button">Edit</button>
+                <button className="button" onClick={() => openModal(id)}>Edit</button>
             </div>
         </div>
     )

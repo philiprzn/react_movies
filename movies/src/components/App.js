@@ -31,7 +31,7 @@ export default class App extends Component {
    }
 
     openModal(id) {
-       console.log('openModal', id)
+       // console.log('openModal', id)
         this.setState((state) => ({
             app: {
                 isModalOpen: true,
@@ -67,7 +67,11 @@ export default class App extends Component {
     }
 
     editMovie(movieId) {
-        // console.log(movieId)
+        console.log('editMovie',movieId)
+        const currentMovie = this.state.movies.find((movie) ={
+            return movie.id === movieId;
+        });
+        console.log('currentMovie',currentMovie)
     }
 
     deleteMovie(movieId) {
@@ -93,7 +97,7 @@ export default class App extends Component {
                     <MovieList />
                 </ErrorBoundary>*/}
                 <ErrorBoundary>
-                    <MovieListWithLoading isLoading={false} movies={movies} deleteMovie={deleteMovie} openModal={openModal}/>
+                    <MovieListWithLoading isLoading={false} movies={movies} deleteMovie={deleteMovie} editMovie={editMovie} openModal={openModal}/>
                 </ErrorBoundary>
                 {isModalOpen &&  <ModalWindow calledMovieId={calledMovieId}
                                               closeModal={closeModal}
