@@ -1,16 +1,19 @@
 import React from 'react';
 import './header.css'
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
+import {ContextConsumer} from "../ContextProvider/ContextProvider";
 
 const Header = (props) => {
-    const { openModal, app } = props;
-    const { title, profileMenuData } = app;
     return (
-        <div className="header">
-            <ProfileMenu profileMenuData={profileMenuData}/>
-            <h1>{title}</h1>
-            <button onClick={openModal} className="button">Add movie</button>
-        </div>
+        <ContextConsumer >
+            {({ app, openModal }) => (
+                <div className="header">
+                    <ProfileMenu profileMenuData={app.profileMenuData}/>
+                    <h1>{app.title}</h1>
+                    <button onClick={() => openModal('addMovie')} className="button">Add movie</button>
+                </div>
+            )}
+        </ ContextConsumer >
     )
 };
 

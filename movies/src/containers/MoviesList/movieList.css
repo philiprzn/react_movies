@@ -1,4 +1,12 @@
-.movielist {
+.moviesList-wrapper {
+
+}
+
+.sorting-block {
+    display: flex;
+}
+
+.moviesList {
     padding: 10px;
     display: flex;
     flex-wrap: wrap;

@@ -7,46 +7,27 @@ import ModalWindow from './../components/ModalWindow/ModalWindow'
 import MovieList from "../containers/MoviesList/MovieList";
 import WithLoading from "../containers/WithLoading/WithLoading";
 import { v4 as uuid } from 'uuid';
+import {ContextConsumer} from "./ContextProvider/ContextProvider";
 
 const MovieListWithLoading = WithLoading(MovieList);
 
 export default class App extends Component {
    constructor(props){
        super(props);
-       const { movies, app } = this.props;
-       const { title , profileMenuData, isModalOpen } = app;
+       /*const { movies, app } = this.props;
+       const { title , profileMenuData, isModalOpen } = app;*/
 
-       this.state = {
+       /*this.state = {
            movies,
            app
-       };
+       };*/
 
-       // console.log(movies);
-
-       this.openModal = this.openModal.bind(this);
+       /*this.openModal = this.openModal.bind(this);
        this.closeModal = this.closeModal.bind(this);
        this.createMovie = this.createMovie.bind(this);
        this.editMovie = this.editMovie.bind(this);
-       this.deleteMovie = this.deleteMovie.bind(this);
+       this.deleteMovie = this.deleteMovie.bind(this);*/
    }
-
-    openModal(id) {
-       // console.log('openModal', id)
-        this.setState((state) => ({
-            app: {
-                isModalOpen: true,
-                calledMovieId: id
-            }
-        }));
-    };
-
-    closeModal() {
-        this.setState((state) => ({
-            app: {
-                isModalOpen: false
-            }
-        }));
-    };
 
     createMovie(e) {
         const { title, description } = e;
@@ -68,10 +49,6 @@ export default class App extends Component {
 
     editMovie(movieId) {
         console.log('editMovie',movieId)
-        const currentMovie = this.state.movies.find((movie) ={
-            return movie.id === movieId;
-        });
-        console.log('currentMovie',currentMovie)
     }
 
     deleteMovie(movieId) {
@@ -84,29 +61,25 @@ export default class App extends Component {
     }
 
     render() {
-        const { movies, app } = this.state;
-        const { isModalOpen, profileMenuData, calledMovieId } = app;
-        const { openModal, closeModal, createMovie, editMovie, deleteMovie } = this;
-
-        console.log("this.state.app", this.state.app)
-
         return (
-            <div className="app-wrapper">
-                <Header openModal={openModal} app={app} profileMenuData={profileMenuData}/>
-                {/*<ErrorBoundary>
-                    <MovieList />
-                </ErrorBoundary>*/}
-                <ErrorBoundary>
-                    <MovieListWithLoading isLoading={false} movies={movies} deleteMovie={deleteMovie} editMovie={editMovie} openModal={openModal}/>
-                </ErrorBoundary>
-                {isModalOpen &&  <ModalWindow calledMovieId={calledMovieId}
-                                              closeModal={closeModal}
-                                              createMovie={createMovie}
-                                              editMovie={editMovie}
-                                              deleteMovie={deleteMovie}
-                />}
-                <Footer />
-            </div>
+            <ContextConsumer>
+                {({ app }) => (
+                    <div className="app-wrapper">
+                        <Header />
+                        <MovieList />
+                        {app.isModalOpen &&  <ModalWindow />}
+                        <Footer />
+                    </div>
+                )}
+            </ContextConsumer>
         );
     }
-}
+};
+
+{/*<Header openModal={openModal} app={app} profileMenuData={profileMenuData}/>*/}
+{/*<ErrorBoundary>
+    <MovieList />
+</ErrorBoundary>*/}
+{/*<ErrorBoundary>
+    <MovieListWithLoading isLoading={false} movies={movies} deleteMovie={deleteMovie} editMovie={editMovie} openModal={openModal}/>
+</ErrorBoundary>*/}

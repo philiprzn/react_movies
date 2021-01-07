@@ -1,23 +1,27 @@
 import React from 'react';
 import './modalWindow.css';
-import DeleteModalWindow from "../DeleteModalWindow/DeleteModalWindow";
-import CreateMovieModalWindow from "../CreateMovieModalWindow/CreateMovieModalWindow";
+import DeleteMovieModalWindow from "../DeleteMovieModalWindow/DeleteMovieModalWindow";
+import AddMovieModalWindow from "../AddMovieModalWindow/AddMovieModalWindow";
 import EditMovieModalWindow from "../EditMovieModalWindow/EditMovieModalWindow";
+import { ContextConsumer } from "../ContextProvider/ContextProvider";
+
+const MODAL_WINDOW_TYPES = {
+    addMovie: <AddMovieModalWindow />,
+    editMovie: <EditMovieModalWindow />,
+    deleteMovie: <DeleteMovieModalWindow />
+}
 
 const ModalWindow = (props) => {
-    const { closeModal, deleteMovie, calledMovieId, createMovie, editMovie, title, description} = props;
     return (
-        <>
-            <div className="modal-window">
-                {/*<DeleteModalWindow calledMovieId={calledMovieId}
-                                   deleteMovie={() => deleteMovie(calledMovieId)}
-                                   closeModal={closeModal}
-                />*/}
-                {/*<CreateMovieModalWindow closeModal={closeModal} createMovie={createMovie}/>*/}
-                <EditMovieModalWindow title={title} description={description} closeModal={closeModal}/>
-            </div>
-        </>
+        <ContextConsumer >
+            {({ app, closeModal }) => (
+                <div className="modal-window">
+                    <button onClick={closeModal} className="button">Close</button>
+                    {MODAL_WINDOW_TYPES[app.modalWindowType]}
+                </div>
+            )}
+        </ ContextConsumer >
     )
-};
+}
 
 export default ModalWindow;

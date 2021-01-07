@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import './editMovieModalWindow.css'
+import './addMovieModalWindow.css'
 import {ContextConsumer} from "../ContextProvider/ContextProvider";
 
-export default class EditMovieModalWindow extends Component {
+export default class AddMovieModalWindow extends Component {
     constructor(props) {
         super(props);
-        // const { currentMovie } = this.props;
-        // const { title, description } = currentMovie;
-
         this.state = {
             title: '',
             description: '',
@@ -15,9 +12,6 @@ export default class EditMovieModalWindow extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.resetValues = this.resetValues.bind(this);
-
-        console.log('EditMovieModalWindow 19', this.props)
     }
 
     handleChange(event) {
@@ -30,20 +24,13 @@ export default class EditMovieModalWindow extends Component {
         event.preventDefault();
     }
 
-    resetValues() {
-        this.setState({
-            title: '',
-            description: ''
-        })
-    }
-
     render() {
-        const {closeModal, editMovie} = this.props;
+        // const {closeModal, deleteMovie, createMovie} = this.props;
 
         return (
             <ContextConsumer >
                 {({ app, closeModal }) => (
-                    <div className="edit-movie-modal-window">
+                    <div className="add-movie-modal-window">
                         <h2>Add Movie</h2>
 
                         <form onSubmit={this.handleSubmit}>
