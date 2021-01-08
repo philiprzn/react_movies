@@ -1,6 +1,6 @@
 import React from "react";
 import './deleteMovieModalWindow.css'
-import {ContextConsumer} from "../ContextProvider/ContextProvider";
+import {ContextConsumer} from "../ModalContextProvider/ModalContextProvider";
 
 const DeleteMovieModalWindow = (props) => {
     const {closeModal, deleteMovie} = props;

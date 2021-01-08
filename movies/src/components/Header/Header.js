@@ -1,7 +1,7 @@
 import React from 'react';
 import './header.css'
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
-import {ContextConsumer} from "../ContextProvider/ContextProvider";
+import {ContextConsumer} from "../ModalContextProvider/ModalContextProvider";
 
 const Header = (props) => {
     return (

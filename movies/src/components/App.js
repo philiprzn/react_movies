@@ -7,7 +7,7 @@ import ModalWindow from './../components/ModalWindow/ModalWindow'
 import MovieList from "../containers/MoviesList/MovieList";
 import WithLoading from "../containers/WithLoading/WithLoading";
 import { v4 as uuid } from 'uuid';
-import {ContextConsumer} from "./ContextProvider/ContextProvider";
+import {ContextConsumer} from "./ModalContextProvider/ModalContextProvider";
 
 const MovieListWithLoading = WithLoading(MovieList);
 

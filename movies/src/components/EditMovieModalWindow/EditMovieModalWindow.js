@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import './editMovieModalWindow.css'
-import {ContextConsumer} from "../ContextProvider/ContextProvider";
+import {ContextConsumer} from "../ModalContextProvider/ModalContextProvider";
 
 export default class EditMovieModalWindow extends Component {
     constructor(props) {

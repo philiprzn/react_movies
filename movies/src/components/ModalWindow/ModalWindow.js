@@ -3,7 +3,7 @@ import './modalWindow.css';
 import DeleteMovieModalWindow from "../DeleteMovieModalWindow/DeleteMovieModalWindow";
 import AddMovieModalWindow from "../AddMovieModalWindow/AddMovieModalWindow";
 import EditMovieModalWindow from "../EditMovieModalWindow/EditMovieModalWindow";
-import { ContextConsumer } from "../ContextProvider/ContextProvider";
+import { ContextConsumer } from "../ModalContextProvider/ModalContextProvider";
 
 const MODAL_WINDOW_TYPES = {
     addMovie: <AddMovieModalWindow />,

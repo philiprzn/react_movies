@@ -3,12 +3,11 @@ import { INITIAL_STATE } from "../../initialState";
 
 const { Provider, Consumer } = React.createContext();
 
-class ContextProvider extends Component {
+class ModalContextProvider extends Component {
     constructor(props) {
         super(props);
-        const { movies, app } = INITIAL_STATE;
+        const { app } = INITIAL_STATE;
         this.state = {
-            movies,
             app
         };
 
@@ -36,8 +35,6 @@ class ContextProvider extends Component {
     };
 
     render() {
-        console.log('ContextProvider state', this.state)
-
         return (
             <Provider value={{...this.state, openModal: this.openModal,  closeModal: this.closeModal}}>
                 {this.props.children}
@@ -46,4 +43,4 @@ class ContextProvider extends Component {
     }
 }
 
-export  { ContextProvider, Consumer as ContextConsumer };
+export  { ModalContextProvider, Consumer as ContextConsumer };

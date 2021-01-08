@@ -1,15 +1,16 @@
 import React from 'react';
 import './movieCard.css';
 import PropTypes from 'prop-types';
-import {ContextConsumer} from "../ContextProvider/ContextProvider";
+import {ContextConsumer} from "../ModalContextProvider/ModalContextProvider";
 
-const MovieCard = ({title, description, id }) => {
+const MovieCard = ({title, description, id, rating }) => {
     return (
         <ContextConsumer >
-            {({ app, openModal }) => (
+            {({ openModal }) => (
                 <div className="moviecard">
                     <h3>{title}</h3>
                     <p>{description}</p>
+                    <p>{rating}</p>
                     <div>
                         <button onClick={() => openModal('deleteMovie', {id: id})} className="button">Delete</button>
                         <button onClick={() => openModal('editMovie', {id: id})} className="button">Edit</button>
