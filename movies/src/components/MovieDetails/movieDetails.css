@@ -1,0 +1,60 @@
+.movie-details {
+    width: 100%;
+    background: linear-gradient(#d05555, #301616);
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+}
+
+.movie {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    margin: 20px;
+    padding: 20px;
+    background: #c8c8c8;
+}
+
+.movie__logo {
+    width: 120px;
+    height: 160px;
+    background: green;
+}
+
+.movie__info {
+    display: flex;
+    flex-direction: column;
+
+    width: 80%;
+    margin-left: 50px;
+    text-align: left;
+}
+
+.movie__info p {
+    text-align: left;
+}
+
+.movie__header {
+    display: flex;
+    flex-direction: row;
+}
+
+.movie__title {
+    line-height: 51px;
+}
+
+.movie__rating {
+    margin-left: 20px;
+    font-size: 26px;
+    padding: 10px;
+    border: 1px solid #d05555;
+    border-radius: 50%;
+}
+
+.movie__time {
+    display: flex;
+}
+
+.movie__time p {
+    padding: 15px;
+}

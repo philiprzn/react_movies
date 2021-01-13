@@ -8,28 +8,13 @@ import MovieList from "../containers/MoviesList/MovieList";
 import WithLoading from "../containers/WithLoading/WithLoading";
 import { v4 as uuid } from 'uuid';
 import {ContextConsumer} from "./ModalContextProvider/ModalContextProvider";
+import MovieDetails from "./MovieDetails/MovieDetails";
 
 const MovieListWithLoading = WithLoading(MovieList);
 
-export default class App extends Component {
-   constructor(props){
-       super(props);
-       /*const { movies, app } = this.props;
-       const { title , profileMenuData, isModalOpen } = app;*/
+const App = () => {
 
-       /*this.state = {
-           movies,
-           app
-       };*/
-
-       /*this.openModal = this.openModal.bind(this);
-       this.closeModal = this.closeModal.bind(this);
-       this.createMovie = this.createMovie.bind(this);
-       this.editMovie = this.editMovie.bind(this);
-       this.deleteMovie = this.deleteMovie.bind(this);*/
-   }
-
-    createMovie(e) {
+    /*createMovie(e) {
         const { title, description } = e;
 
         this.setState(({movies}) => ({
@@ -57,15 +42,14 @@ export default class App extends Component {
             app: {
                 isModalOpen: false
             } }));
-        // console.log(movieId)
-    }
+    }*/
 
-    render() {
         return (
             <ContextConsumer>
                 {({ app }) => (
                     <div className="app-wrapper">
-                        <Header />
+                        {/*<Header />*/}
+                        <MovieDetails />
                         <MovieList />
                         {app.isModalOpen &&  <ModalWindow />}
                         <Footer />
@@ -73,8 +57,9 @@ export default class App extends Component {
                 )}
             </ContextConsumer>
         );
-    }
 };
+
+export default App;
 
 {/*<Header openModal={openModal} app={app} profileMenuData={profileMenuData}/>*/}
 {/*<ErrorBoundary>

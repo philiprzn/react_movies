@@ -16,8 +16,6 @@ class ModalContextProvider extends Component {
     }
 
     openModal(type, params) { // types, params
-        console.log('openModal', type)
-
         this.setState((state) => ({
             app: {
                 isModalOpen: true,
