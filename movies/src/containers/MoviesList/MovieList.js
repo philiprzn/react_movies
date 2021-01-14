@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useMemo, useCallback} from 'react';
 import './movieList.css';
 import MovieCard from "../../components/MovieCard/MovieCard";
 import getMovies from "../../api/getMovies";
-import { SORTING_HANDLER_FUNCTIONS } from './../../api/sortingHandlerFunctions';
+import {SORTING_HANDLER_FUNCTIONS} from './../../api/sortingHandlerFunctions';
 
-export default function MovieList () {
-    const [count, setCount ] = useState(0);
+export default function MovieList() {
+    const [count, setCount] = useState(0);
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
@@ -13,103 +13,42 @@ export default function MovieList () {
         setMovies(movies);
     });
 
-    const [sortFilter, setSortType] = useState('none')
+    const [sortType, setSortType] = useState('none')
 
     function handleSortChange(e) {
-        setSortType(e.target.value);
+        setMovies(movies.sort(SORTING_HANDLER_FUNCTIONS[e.currentTarget.value]));
+        setSortType(e.currentTarget.value);
     }
 
-        const moviesForSorting = [...movies];
-        const filteredMovies = sortFilter === 'none' ? movies : moviesForSorting.sort(SORTING_HANDLER_FUNCTIONS[sortFilter]);
+    const hanldeMovieSort = useCallback((e) => { handleSortChange(e) }, [movies, sortType]);
 
-        return (
-            <>
-                <div className="moviesList-wrapper">
-                    <div className="sorting-block">
-                        <h3>SORT BY</h3>
-                        <select onChange={e => handleSortChange(e)}>
-                            <option value='none'>None</option>
-                            <option value='releaseDate'>Release Date</option>
-                            <option value='rating'>Rating</option>
-                        </select>
-                    </div>
-                    <div className="moviesList">
-                        MOVIES LIST
-                        { movies && filteredMovies.map(({title, description, id, rating}) =>
-                            <MovieCard title={title}
-                                       description={description}
-                                       key={id}
-                                       id={id}
-                                       rating={rating}
-                            />
-                        )}
-                        <button onClick={() => setCount(count + 1)}>
-                            Нажми на меня
-                        </button>
-                        <p>Вы нажали {count} раз</p>
-                        <p>{sortFilter} </p>
-                    </div>
+    const moviesForRender = useMemo(() => [...movies], [movies]);
+    // const filteredMovies = useMemo(() => sortType === 'none' ? moviesForSorting : movies.sort(SORTING_HANDLER_FUNCTIONS[sortType]), [movies, sortType]);
+
+    return (
+        <>
+            <div className="moviesList-wrapper">
+                <div className="sorting-block">
+                    <h3>SORT BY</h3>
+                    <select onChange={hanldeMovieSort}>
+                    {/*<select onChange={e => handleSortChange(e)}>*/}
+                        <option value='none'>None</option>
+                        <option value='releaseDate'>Release Date</option>
+                        <option value='rating'>Rating</option>
+                    </select>
                 </div>
-            </>
-        );
+                <div className="moviesList">
+                    MOVIES LIST
+                    {movies && movies.map(({title, description, id, rating}) =>
+                        <MovieCard title={title}
+                                   description={description}
+                                   key={id}
+                                   id={id}
+                                   rating={rating}
+                        />
+                    )}
+                </div>
+            </div>
+        </>
+    );
 };
-
-
-// export default class MovieList extends Component {
-//     constructor(props) {
-//         super(props);
-//
-//         this.state = {
-//             movies: [],
-//             sortFilter: 'none'
-//         }
-//
-//         this.handleChange = this.handleChange.bind(this);
-//     }
-//
-//     componentDidMount() {
-//         const movies = getMovies();
-//
-//         this.setState((state, props) => {
-//             return {
-//                 movies: movies
-//             }
-//         });
-//     }
-//
-//     handleChange (event) {
-//         this.setState({ sortFilter: event.currentTarget.value })
-//     }
-//
-//     render() {
-//         const { movies, sortFilter } = this.state;
-//         const moviesForSorting = [...movies];
-//
-//         const filteredMovies = this.state.sortFilter === 'none' ? movies : moviesForSorting.sort(SORTING_HANDLER_FUNCTIONS[sortFilter]);
-//
-//         return (
-//             <>
-//                 <div className="moviesList-wrapper">
-//                     <div className="sorting-block">
-//                         <h3>SORT BY</h3>
-//                         <select onChange={this.handleChange}>
-//                             <option value='none'>None</option>
-//                             <option value='releaseDate'>Release Date</option>
-//                             <option value='rating'>Rating</option>
-//                         </select>
-//                     </div>
-//                     <div className="moviesList">
-//                         { movies && filteredMovies.map(({title, description, id, rating}) =>
-//                             <MovieCard title={title}
-//                                        description={description}
-//                                        key={id}
-//                                        id={id}
-//                                        rating={rating}
-//                             />
-//                         )}
-//                     </div>
-//                 </div>
-//             </>
-//         );
-//     }
-// };
