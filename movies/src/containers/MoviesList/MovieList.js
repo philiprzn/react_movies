@@ -19,7 +19,6 @@ export default function MovieList() {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const user = useMemo(() => createUser(name, surname), [name, surname])
-
     const [message, setMessage] = useState('Hello world');
 
     const greeting = useCallback((text) => {
@@ -30,11 +29,11 @@ export default function MovieList() {
         greeting(message);
     }, [greeting, message]);
 
-
     useEffect(() => {
+        console.log('useEffect 34');
         const movies = getMovies;
         setMovies(movies);
-    });
+    }, []);
 
     function handleSortChange(e) {
         setSortType(e.currentTarget.value);
