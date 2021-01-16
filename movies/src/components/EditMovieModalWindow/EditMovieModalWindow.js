@@ -59,7 +59,7 @@ export default class EditMovieModalWindow extends Component {
                             <input type="submit" value="Submit" />
                         </form>
                         <div>
-                            <button onClick={closeModal} className="button">Delete Movie</button>
+                            <button onClick={closeModal} className="button">Edit Movie</button>
                             <button onClick={closeModal} className="button close-button">Close</button>
                         </div>
                     </div>

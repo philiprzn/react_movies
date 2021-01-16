@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 };
 
 const common = {
-    entry: PATHS.source + "/index.js",
+    entry: PATHS.source + "/useToggle.js",
     output: {
         path: PATHS.build,
         filename: "[name].js",

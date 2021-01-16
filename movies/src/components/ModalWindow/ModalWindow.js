@@ -14,10 +14,10 @@ const MODAL_WINDOW_TYPES = {
 const ModalWindow = (props) => {
     return (
         <ContextConsumer >
-            {({ app, closeModal }) => (
+            {({ modalWindowType, closeModal }) => (
                 <div className="modal-window">
                     <button onClick={closeModal} className="button">Close</button>
-                    {MODAL_WINDOW_TYPES[app.modalWindowType]}
+                    {MODAL_WINDOW_TYPES[modalWindowType]}
                 </div>
             )}
         </ ContextConsumer >

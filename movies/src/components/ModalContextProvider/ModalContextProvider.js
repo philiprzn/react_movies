@@ -1,44 +1,29 @@
-import React, { Component } from "react";
-import { INITIAL_STATE } from "../../initialState";
+import React, {Component, useState, useEffect, useMemo, useCallback} from "react";
+import {INITIAL_STATE} from "../../initialState";
+import useToggle from "../../customHooks/useToggle/useToggle";
 
-const { Provider, Consumer } = React.createContext();
+const {Provider, Consumer} = React.createContext();
 
-class ModalContextProvider extends Component {
-    constructor(props) {
-        super(props);
-        const { app } = INITIAL_STATE;
-        this.state = {
-            app
-        };
+function ModalContextProvider(props) {
 
-        this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
-    }
+    const {app} = INITIAL_STATE;
+    const [application, setApplication] = useState(app);
+    const [isModalWindowOpen, toggleModalWindow] = useToggle(false);
 
-    openModal(type, params) { // types, params
-        this.setState((state) => ({
-            app: {
-                isModalOpen: true,
-                modalWindowType: type
-            }
-        }));
+    const openModal = (type, params) => { // types, params
+        setApplication({...application, modalWindowType: type})
+        toggleModalWindow();
     };
 
-    closeModal() {
-        this.setState((state) => ({
-            app: {
-                isModalOpen: false
-            }
-        }));
+    const closeModal = () => {
+        toggleModalWindow();
     };
 
-    render() {
-        return (
-            <Provider value={{...this.state, openModal: this.openModal,  closeModal: this.closeModal}}>
-                {this.props.children}
-            </Provider>
-        );
-    }
+    return (
+        <Provider value={{...application, openModal, closeModal, isModalWindowOpen}}>
+            {props.children}
+        </Provider>
+    );
 }
 
-export  { ModalContextProvider, Consumer as ContextConsumer };
+export {ModalContextProvider, Consumer as ContextConsumer};

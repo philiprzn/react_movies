@@ -6,10 +6,10 @@ import {ContextConsumer} from "../ModalContextProvider/ModalContextProvider";
 const Header = (props) => {
     return (
         <ContextConsumer >
-            {({ app, openModal }) => (
+            {({ title, profileMenuData, openModal }) => (
                 <div className="header">
-                    <ProfileMenu profileMenuData={app.profileMenuData}/>
-                    <h1>{app.title}</h1>
+                    <ProfileMenu profileMenuData={profileMenuData}/>
+                    <h1>{title}</h1>
                     <button onClick={() => openModal('addMovie')} className="button">Add movie</button>
                 </div>
             )}

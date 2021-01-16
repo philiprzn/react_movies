@@ -46,15 +46,18 @@ const App = () => {
 
         return (
             <ContextConsumer>
-                {({ app }) => (
+                {({ isModalWindowOpen }) => {
+                    // console.log("app =========", isModalWindowOpen);
+
+                    return (
                     <div className="app-wrapper">
                         {/*<Header />*/}
                         <MovieDetails />
                         <MovieList />
-                        {app.isModalOpen &&  <ModalWindow />}
-                        <Footer />
+                        {isModalWindowOpen &&  <ModalWindow />}
+                        {/*<Footer />*/}
                     </div>
-                )}
+                )}}
             </ContextConsumer>
         );
 };
