@@ -45,4 +45,4 @@ MovieCard.defaultProps = {
     description: 'Cool description',
 }
 
-export default MovieCard;
+export default React.memo(MovieCard);
