@@ -1,7 +1,9 @@
 import React, {useState, useEffect, useMemo, useCallback} from 'react';
 import getMovies from "../../api/getMovies";
 import {SORTING_HANDLER_FUNCTIONS} from './../../api/sortingHandlerFunctions';
-import MovieListVie from "./MovieListVew";
+import MoviesListVie from "./MoviesListVew";
+import {toggleModalWindow} from "../../store/actions/app";
+import {connect} from "react-redux";
 
 function createUser(name, surname) {
     const user = {name, surname};
@@ -9,9 +11,12 @@ function createUser(name, surname) {
     return user;
 }
 
-export default function MovieList() {
-    const [movies, setMovies] = useState([]);
+function MoviesList(props) {
+    // const [movies, setMovies] = useState([]);
     const [sortType, setSortType] = useState('none')
+
+    const {movies} = props;
+    // console.log('++++++ MoviesList props ++++++', props );
 
     const [counter, setCounter] = useState(0);
     const [name, setName] = useState('');
@@ -26,10 +31,10 @@ export default function MovieList() {
         greeting(message);
     }, [greeting, message]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         const movies = getMovies;
         setMovies(movies);
-    }, []);
+    }, []);*/
 
     function handleSortChange(e) {
         setSortType(e.currentTarget.value);
@@ -56,7 +61,7 @@ export default function MovieList() {
 
     return (
         <>
-            {movies.length && <MovieListVie
+            {movies.length && <MoviesListVie
                 increaseCounter={increaseCounter}
                 counter={counter}
                 updateName={updateName}
@@ -71,3 +76,17 @@ export default function MovieList() {
         </>
     );
 }
+
+function mapStateToProps(state) {
+    const {movies, app} = state;
+
+    return {movies, app};
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        toggleModalWindow: (type) => dispatch(toggleModalWindow(type)),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);

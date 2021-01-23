@@ -1,20 +1,34 @@
 import React from "react";
 import './deleteMovieModalWindow.css'
-import {ContextConsumer} from "../ModalContextProvider/ModalContextProvider";
+import {toggleModalWindow} from "../../store/actions/app";
+import {deleteMovie} from "../../store/actions/movies";
+import {connect} from "react-redux";
 
 const DeleteMovieModalWindow = (props) => {
-    const {closeModal, deleteMovie} = props;
+    const { app, toggleModalWindow, deleteMovie } = props;
+    
+    console.log('DeleteMovieModalWindow props', props);
 
     return (
-        <ContextConsumer >
-            {({ app, closeModal }) => (
-                <div className="delete-modal-window">
-                    <button onClick={closeModal} className="button">Delete Movie</button>
-                    <button onClick={closeModal} className="button close-button">Close</button>
-                </div>
-            )}
-        </ContextConsumer>
+        <div className="delete-modal-window">
+            <button onClick={() => deleteMovie(app.calledMovieId)} className="button">Delete Movie</button>
+            <button onClick={toggleModalWindow} className="button close-button">Close</button>
+        </div>
     )
 };
 
-export default DeleteMovieModalWindow;
+function mapStateToProps (state)  {
+    const { movies, app } = state;
+
+    return { movies, app };
+};
+
+const mapDispatchToProps = dispatch => {
+
+    return {
+        toggleModalWindow: () => dispatch(toggleModalWindow()),
+        deleteMovie: (movieId) => dispatch(deleteMovie(movieId)),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteMovieModalWindow);

@@ -1,5 +1,5 @@
 import React from 'react';
-import './movieList.css';
+import './moviesList.css';
 import MovieCard from "../../components/MovieCard/MovieCard";
 import MoviesSorting from "../../components/MoviesSorting/MoviesSorting";
 
@@ -23,7 +23,6 @@ const MovieListView = (props) => {
             <div className="moviesList-wrapper">
                 <MoviesSorting hanldeMovieSort={props.hanldeMovieSort}/>
                 <div className="moviesList">
-                    MOVIES LIST
                     { props.filteredMovies.map(({title, description, id, rating}) =>
                         <MovieCard title={title}
                                    description={description}

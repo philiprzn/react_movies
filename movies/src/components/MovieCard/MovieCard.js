@@ -1,23 +1,36 @@
 import React from 'react';
 import './movieCard.css';
 import PropTypes from 'prop-types';
-import {ContextConsumer} from "../ModalContextProvider/ModalContextProvider";
+import {toggleModalWindow} from "../../store/actions/app";
+import {connect} from "react-redux";
 
-const MovieCard = ({title, description, id, rating }) => {
+const MovieCard = (props) => {
+    const { title, description, id, rating, toggleModalWindow } = props;
+    const deleteData = {
+        modalWindowType: 'deleteMovie',
+        calledMovieId: id
+    }
+
+    const editData = {
+        modalWindowType: 'editMovie',
+        editedMovieData: {
+            id,
+            title,
+            description,
+            rating
+        }
+    }
+
     return (
-        <ContextConsumer >
-            {({ openModal }) => (
-                <div className="moviecard">
-                    <h3>{title}</h3>
-                    <p>{description}</p>
-                    <p>{rating}</p>
-                    <div>
-                        <button onClick={() => openModal('deleteMovie', {id: id})} className="button">Delete</button>
-                        <button onClick={() => openModal('editMovie', {id: id})} className="button">Edit</button>
-                    </div>
-                </div>
-            )}
-        </ ContextConsumer >
+        <div className="moviecard">
+            <h3>{title}</h3>
+            <p>{description}</p>
+            <p>{rating}</p>
+            <div>
+                <button onClick={() => toggleModalWindow(deleteData)} className="button">Delete</button>
+                <button onClick={() => toggleModalWindow(editData)} className="button">Edit</button>
+            </div>
+        </div>
     )
 };
 
@@ -45,4 +58,16 @@ MovieCard.defaultProps = {
     description: 'Cool description',
 }
 
-export default React.memo(MovieCard);
+function mapStateToProps(state) {
+    const { movies, app } = state;
+
+    return { movies, app };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        toggleModalWindow: (type) => dispatch(toggleModalWindow(type)),
+    }
+};
+
+export default React.memo(connect(mapStateToProps, mapDispatchToProps)(MovieCard));

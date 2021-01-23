@@ -35,7 +35,8 @@ export const INITIAL_STATE = {
     app: {
         title: 'Netflix App',
         profileMenuData: 'Profile Menu Data',
-        isModalOpen: false,
+        isModalWindowOpen: false,
+        modalWindowType: null,
         calledMovieId: '',
     }
 };
