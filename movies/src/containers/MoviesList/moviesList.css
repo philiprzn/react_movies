@@ -2,8 +2,14 @@
 
 }
 
-.sorting-block {
+.sorting-filtering-block {
     display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.sorting-block {
+    display: inline-block;
 }
 
 .moviesList {

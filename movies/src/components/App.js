@@ -51,36 +51,6 @@ const App = (props) => {
         toggleModalWindow();
     };*/
 
-    /*createMovie(e) {
-        const { title, description } = e;
-
-        this.setState(({movies}) => ({
-            movies: [
-                ...movies,
-                {
-                    id: uuid(),
-                    title: title,
-                    description: description,
-                }
-            ],
-            app: {
-                isModalOpen: false
-            }
-        }));
-    }
-
-    editMovie(movieId) {
-        console.log('editMovie',movieId)
-    }
-
-    deleteMovie(movieId) {
-        this.setState(({ movies }) => ({
-            movies: movies.filter(movie => movie.id !== movieId),
-            app: {
-                isModalOpen: false
-            } }));
-    }*/
-
         return (
             <div className="app-wrapper">
                 <h1>Hello world</h1>
@@ -89,7 +59,7 @@ const App = (props) => {
                 <MovieList />
                 {isModalWindowOpen &&  <ModalWindow />}
                 {/*<p>Window open: {isModalWindowOpen.toString()}</p>*/}
-                <button onClick={() => props.addMovie(newMovie)}>AddMovie</button>
+                {/*<button onClick={() => props.addMovie(newMovie)}>AddMovie</button>*/}
                 {/*<button onClick={toggleModalWindow}>Toggle button</button>*/}
                 <pre>{JSON.stringify(props, null, 2)}</pre>
             </div>

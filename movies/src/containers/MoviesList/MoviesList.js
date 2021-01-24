@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useMemo, useCallback} from 'react';
 import getMovies from "../../api/getMovies";
 import {SORTING_HANDLER_FUNCTIONS} from './../../api/sortingHandlerFunctions';
-import MoviesListVie from "./MoviesListVew";
+import MoviesListView from "./MoviesListView";
 import {toggleModalWindow} from "../../store/actions/app";
 import {connect} from "react-redux";
 
@@ -14,7 +14,7 @@ function MoviesList(props) {
 
     return (
         <>
-            {movies.length && <MoviesListVie
+            {movies.length && <MoviesListView
                 movies={movies}
                 filteredMovies={filteredMovies}
             />
