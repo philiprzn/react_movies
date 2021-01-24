@@ -12,6 +12,11 @@ function app(state = apa, action = {calledMovieId: null, movieToEdit: null}) {
                 calledMovieId: action.payload.calledMovieId,
                 movieToEdit: action.payload.editedMovieData
     };
+        case ACTIONS.CHANGE_SORTING_VALUE:
+            return {
+                ...state,
+                sortingType: action.payload
+            };
         default:
             return state;
     }

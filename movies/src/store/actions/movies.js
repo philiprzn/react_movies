@@ -8,7 +8,6 @@ export const addMovie = (movie) => ({
 });
 
 export const deleteMovie = (movieId) => {
-
     return {
         type: DELETE_MOVIE,
         payload: movieId
@@ -16,9 +15,6 @@ export const deleteMovie = (movieId) => {
 };
 
 export const editMovie = (movieToEdit) => {
-
-    console.log('movies action data === ', movieToEdit);
-
     return {
         type: EDIT_MOVIE,
         payload: movieToEdit

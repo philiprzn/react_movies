@@ -6,24 +6,10 @@ import MoviesSorting from "../../components/MoviesSorting/MoviesSorting";
 const MovieListView = (props) => {
     return (
         <>
-            <div>
-                <p>MovieList</p>
-                <button onClick={props.increaseCounter}>На меня нажали {props.counter} раз</button>
-                <br/>
-                <br/>
-                <input type="text" value={props.name} onChange={(e) => props.updateName(e)}/>
-                <br/>
-                <input type="text" value={props.surname} onChange={(e) => props.updateSurname(e)}/>
-                <br/>
-                <br/>
-                <pre>{JSON.stringify(props.user, null, 2)}</pre>
-                <br/>
-            </div>
-
             <div className="moviesList-wrapper">
-                <MoviesSorting hanldeMovieSort={props.hanldeMovieSort}/>
+                <MoviesSorting/>
                 <div className="moviesList">
-                    { props.filteredMovies.map(({title, description, id, rating}) =>
+                    {props.filteredMovies.map(({title, description, id, rating}) =>
                         <MovieCard title={title}
                                    description={description}
                                    key={id}

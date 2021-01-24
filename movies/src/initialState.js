@@ -5,10 +5,10 @@ export const INITIAL_STATE = {
     movies: [
         {
             id: uuidv4(),
-            title: "Movie1-2014",
+            title: "Movie1-2013",
             description: "Description1",
-            rating: 9.2,
-            releaseDate: 2014
+            rating: 9.3,
+            releaseDate: 2013
         },
         {
             id: uuidv4(),
@@ -21,7 +21,7 @@ export const INITIAL_STATE = {
             id: uuidv4(),
             title: "Movie3-1997",
             description: "Description3",
-            rating: 9.4,
+            rating: 7.4,
             releaseDate: 1997
         },
         {
@@ -37,6 +37,8 @@ export const INITIAL_STATE = {
         profileMenuData: 'Profile Menu Data',
         isModalWindowOpen: false,
         modalWindowType: null,
-        calledMovieId: '',
+        calledMovieId: null,
+        sortingType: 'none',
+        filterBy: null,
     }
 };

@@ -3,9 +3,7 @@ import { INITIAL_STATE } from './../../initialState';
 const { movies: mov, app } = INITIAL_STATE;
 
 function movies(state = INITIAL_STATE.movies, action = {}) {
-    
-    console.log('movies reducer data ===', action);
-    
+
     switch (action.type) {
         case ACTIONS.ADD_MOVIE:
             return [...state, action.payload];
