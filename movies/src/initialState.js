@@ -37,7 +37,7 @@ export const INITIAL_STATE = {
         },
         {
             id: uuidv4(),
-            title: "Movie5-2005",
+            title: "Movie5-2011",
             description: "Description4",
             rating: 5.6,
             releaseDate: 2011,

@@ -3,30 +3,41 @@ import {connect} from "react-redux";
 import {handleSortChange} from "../../store/actions/app";
 import {useState} from 'react';
 
+const Checkbox = (props) => {
+
+};
+
 const MoviesSorting = (props) => {
-    const {app} = props;
+    const {app, movies} = props;
     const {filterType} = app;
     console.log('MoviesSorting filterType', filterType);
 
     const [checked, setChecked] = useState(filterType);
+    const [localMovies, setLocalMovies] = useState(movies);
 
     const handleToggle = (e) => {
-        console.log('HANDLE TOGGLE', e.target.id);
-        const currentCheckbox = e.target.id;
-        const currentIndex = checked.indexOf(currentCheckbox);
-        const newChecked = [...checked];
-
-        console.log('newChecked =', newChecked);
+        const currentCheckboxValue = e.target.id;
+        const currentIndex = checked.indexOf(currentCheckboxValue);
+        const checkedArray = [...checked];
 
         if (currentIndex === -1) {
-            newChecked.push(currentCheckbox);
-            console.log('newChecked 2 =', newChecked);
+            checkedArray.push(currentCheckboxValue);
+
+            console.log('newChecked 2 =', checkedArray);
         } else {
-            newChecked.splice(currentIndex, 1)
-            console.log('newChecked 3 =', newChecked);
+            checkedArray.splice(currentIndex, 1)
+            console.log('newChecked 3 =', checkedArray);
         }
 
-        setChecked(newChecked);
+        const filtredLocalMovies = localMovies.filter(movie => {
+            return movie.genre.some(item => {
+                return checkedArray.some(R => R === item);
+            });
+        });
+
+        console.log('filtredLocalMovies ===', filtredLocalMovies);
+
+        setChecked(checkedArray);
     };
 
     return (
