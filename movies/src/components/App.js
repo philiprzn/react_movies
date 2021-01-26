@@ -1,4 +1,4 @@
-import React, {Component, useState} from "react";
+import React, {Component, useState, useEffect} from "react";
 import './app.css';
 import Header from "./../components/Header/Header"
 import Footer from "./../components/Footer/Footer"
@@ -10,8 +10,9 @@ import { v4 as uuid } from 'uuid';
 // import {ContextConsumer} from "./ModalContextProvider/ModalContextProvider";
 import MovieDetails from "./MovieDetails/MovieDetails";
 import { connect } from 'react-redux';
-import { addMovie }  from './../store/actions/movies';
+import { addMovie, getMovies }  from './../store/actions/movies';
 import { toggleModalWindow }  from './../store/actions/app';
+import { asyncGetMovies } from "./../store/actions/movies";
 import {INITIAL_STATE} from "../initialState";
 import useToggle from "../customHooks/useToggle/useToggle";
 
@@ -36,8 +37,12 @@ const newMovie = {
 const MovieListWithLoading = WithLoading(MovieList);
 
 const App = (props) => {
-    const { app, toggleModalWindow } = props;
+    const { app, toggleModalWindow, movies } = props;
     const { isModalWindowOpen } = app;
+
+    useEffect(() => {
+        props.onGetMovies();
+    }, []);
 
     // const [application, setApplication] = useState(app);
     // const [isModalWindowOpen, toggleModalWindow] = useToggle(false);
@@ -53,33 +58,31 @@ const App = (props) => {
 
         return (
             <div className="app-wrapper">
-                <h1>Hello world</h1>
-                <br/>
                 <Header />
-                <MovieList />
+                { movies.length > 0 && <MovieList /> }
                 {isModalWindowOpen &&  <ModalWindow />}
                 {/*<p>Window open: {isModalWindowOpen.toString()}</p>*/}
                 {/*<button onClick={() => props.addMovie(newMovie)}>AddMovie</button>*/}
                 {/*<button onClick={toggleModalWindow}>Toggle button</button>*/}
+                {/*<div>
+                    <button onClick={props.onGetMovies}>GET MOVIES</button>
+                </div>*/}
                 <pre>{JSON.stringify(props, null, 2)}</pre>
             </div>
         );
 };
 
-
 function mapStateToProps(state) {
-    // console.log("function mapStateToProps APP ====", state);
-
     const { movies, app } = state;
 
     return { movies, app };
-    // return movies;
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         addMovie: (newMovieData) => dispatch(addMovie(newMovieData)),
         toggleModalWindow: () => dispatch(toggleModalWindow()),
+        onGetMovies: () => dispatch(asyncGetMovies())
     }
 };
 

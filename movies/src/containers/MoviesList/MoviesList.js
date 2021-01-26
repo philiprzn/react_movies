@@ -4,10 +4,20 @@ import {SORTING_HANDLER_FUNCTIONS} from './../../api/sortingHandlerFunctions';
 import MoviesListView from "./MoviesListView";
 import {toggleModalWindow} from "../../store/actions/app";
 import {connect} from "react-redux";
+import {asyncGetMovies} from "../../store/actions/movies";
 
 function MoviesList(props) {
     const {movies, app} = props;
     const {sortingType, filterTypeArray} = app;
+
+    // const [moviesAsync, setMoviesAsync] = useState([]);
+
+    /*useEffect(() => {
+        /!*const movies = getMovies;
+        setMoviesAsyncw(movies);*!/
+
+        props.onGetMovies();
+    }, []);*/
 
     const moviesForRender = useMemo(() => filterTypeArray.length === 0 ? [...movies] : movies.filter(movie => {
         return movie.genre.some(item => {
@@ -35,6 +45,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => {
     return {
         toggleModalWindow: (type) => dispatch(toggleModalWindow(type)),
+        onGetMovies: () => dispatch(asyncGetMovies())
     }
 };
 

@@ -5,6 +5,8 @@ const { movies: mov, app } = INITIAL_STATE;
 function movies(state = INITIAL_STATE.movies, action = {}) {
 
     switch (action.type) {
+        case ACTIONS.GET_MOVIES:
+            return [...action.payload];
         case ACTIONS.ADD_MOVIE:
             return [...state, action.payload];
         case ACTIONS.EDIT_MOVIE:
