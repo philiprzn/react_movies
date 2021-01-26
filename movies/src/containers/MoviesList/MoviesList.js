@@ -7,18 +7,21 @@ import {connect} from "react-redux";
 
 function MoviesList(props) {
     const {movies, app} = props;
-    const { sortingType } = app;
+    const {sortingType, filterTypeArray} = app;
 
-    const moviesForRender = useMemo(() => [...movies], [movies]);
-    const filteredMovies = useMemo(() => sortingType === 'none' ? moviesForRender : [...movies.sort(SORTING_HANDLER_FUNCTIONS[sortingType])], [movies, sortingType]);
+    const moviesForRender = useMemo(() => filterTypeArray.length === 0 ? [...movies] : movies.filter(movie => {
+        return movie.genre.some(item => {
+            return filterTypeArray.some(value => value === item);
+        });
+    }), [movies, filterTypeArray]);
+
+    const filteredMovies = useMemo(() => sortingType === 'none' ? moviesForRender : [...moviesForRender.sort(SORTING_HANDLER_FUNCTIONS[sortingType])], [movies, sortingType, filterTypeArray]);
 
     return (
         <>
             {movies.length && <MoviesListView
-                movies={movies}
                 filteredMovies={filteredMovies}
-            />
-            }
+            />}
         </>
     );
 }

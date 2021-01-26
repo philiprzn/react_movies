@@ -51,6 +51,6 @@ export const INITIAL_STATE = {
         modalWindowType: null,
         calledMovieId: null,
         sortingType: 'none',
-        filterType: [],
+        filterTypeArray: [],
     }
 };
