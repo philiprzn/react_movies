@@ -1,16 +1,14 @@
 import React from 'react';
 import './movieCard.css';
 import PropTypes from 'prop-types';
-import {toggleModalWindow} from "../../store/actions/app";
-import {connect} from "react-redux";
 
 const MovieCard = (props) => {
     const { title, description, id, rating, toggleModalWindow } = props;
+
     const deleteData = {
         modalWindowType: 'deleteMovie',
         calledMovieId: id
-    }
-
+    };
     const editData = {
         modalWindowType: 'editMovie',
         editedMovieData: {
@@ -19,7 +17,7 @@ const MovieCard = (props) => {
             description,
             rating
         }
-    }
+    };
 
     return (
         <div className="moviecard">
@@ -34,20 +32,6 @@ const MovieCard = (props) => {
     )
 };
 
-/*<div className="moviecard">
-    <h3>{title}</h3>
-    <p>{description}</p>
-
-    <div>
-        <button className="button"
-                id={id}
-                deleteMovie={deleteMovie}
-                onClick={() => openModal(id)}
-        >Delete</button>
-        <button className="button" editMovie={editMovie} onClick={() => openModal('edit', {id: id})}>Edit</button>
-    </div>
-</div>*/
-
 MovieCard.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
@@ -58,16 +42,4 @@ MovieCard.defaultProps = {
     description: 'Cool description',
 }
 
-function mapStateToProps(state) {
-    const { movies, app } = state;
-
-    return { movies, app };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        toggleModalWindow: (type) => dispatch(toggleModalWindow(type)),
-    }
-};
-
-export default React.memo(connect(mapStateToProps, mapDispatchToProps)(MovieCard));
+export default React.memo(MovieCard);

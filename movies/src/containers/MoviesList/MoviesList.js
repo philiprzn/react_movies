@@ -1,36 +1,24 @@
 import React, {useState, useEffect, useMemo, useCallback} from 'react';
-import getMovies from "../../api/getMovies";
-import {SORTING_HANDLER_FUNCTIONS} from './../../api/sortingHandlerFunctions';
 import MoviesListView from "./MoviesListView";
 import {toggleModalWindow} from "../../store/actions/app";
 import {connect} from "react-redux";
 import {asyncGetMovies} from "../../store/actions/movies";
 
 function MoviesList(props) {
-    const {movies, app} = props;
+    const {movies, app, toggleModalWindow} = props;
     const {sortingType, filterTypeArray} = app;
 
-    // const [moviesAsync, setMoviesAsync] = useState([]);
-
-    /*useEffect(() => {
-        /!*const movies = getMovies;
-        setMoviesAsyncw(movies);*!/
-
+    useEffect(() => {
         props.onGetMovies();
-    }, []);*/
-
-    const moviesForRender = useMemo(() => filterTypeArray.length === 0 ? [...movies] : movies.filter(movie => {
-        return movie.genre.some(item => {
-            return filterTypeArray.some(value => value === item);
-        });
-    }), [movies, filterTypeArray]);
-
-    const filteredMovies = useMemo(() => sortingType === 'none' ? moviesForRender : [...moviesForRender.sort(SORTING_HANDLER_FUNCTIONS[sortingType])], [movies, sortingType, filterTypeArray]);
+    }, []);
 
     return (
         <>
-            {movies.length && <MoviesListView
-                filteredMovies={filteredMovies}
+            <MoviesListView
+                movies={movies}
+                filterTypeArray={filterTypeArray}
+                toggleModalWindow={toggleModalWindow}
+                sortingType={sortingType}
             />}
         </>
     );
