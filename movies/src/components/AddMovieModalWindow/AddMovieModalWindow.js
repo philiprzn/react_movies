@@ -5,7 +5,7 @@ import {toggleModalWindow} from "../../store/actions/app";
 import createMovie from "../../api/createMovie";
 import {addMovie} from "../../store/actions/movies";
 import {Formik} from "formik";
-import * as yup from 'yup';
+import { validationSchema } from "../../api/formik/validationSchema";
 
 function AddMovieModalWindow (props) {
     const {toggleModalWindow, addMovie} = props;
@@ -14,20 +14,6 @@ function AddMovieModalWindow (props) {
         addMovie(createMovie(values));
         toggleModalWindow();
     }
-
-    const validationSchema = yup.object().shape({
-        title: yup.string()
-            .typeError('Должно быть строкой')
-            .required('Обязательное поле'),
-        description: yup.string()
-            .typeError('Должно быть строкой')
-            .required('Обязательное поле'),
-        releaseDate: yup.number()
-            .min(1, 'Value must be greater than 1925')
-            .max(2021, 'Value must be less than 2021')
-            .typeError('Должно быть числом')
-            .required('Обязательное поле'),
-    })
 
     return (
         <div className="add-movie-modal-window">

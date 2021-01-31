@@ -10,10 +10,10 @@ function movies(state = INITIAL_STATE.movies, action = {}) {
         case ACTIONS.ADD_MOVIE:
             return [...state, action.payload];
         case ACTIONS.EDIT_MOVIE:
-            const { id, title, description } = action.payload;
+            const { id, title, description, releaseDate } = action.payload;
 
             return state.map((movie, index) => {
-                return movie.id === id ? {...movie, title, description} : movie
+                return movie.id === id ? {...movie, title, description, releaseDate} : movie
             });
         case ACTIONS.DELETE_MOVIE:
             return state.filter(movie => movie.id != action.payload);

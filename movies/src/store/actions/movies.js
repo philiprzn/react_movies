@@ -59,6 +59,8 @@ export const deleteMovie = (movieId) => {
 };
 
 export const editMovie = (movieToEdit) => {
+    console.log('src\\store\\actions\\movies.js  movieToEdit ===', movieToEdit);
+    
     return {
         type: EDIT_MOVIE,
         payload: movieToEdit

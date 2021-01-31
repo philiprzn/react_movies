@@ -1,83 +1,110 @@
-import React, {Component} from "react";
+import React, {Component, useState, useEffect} from "react";
 import './editMovieModalWindow.css'
 import {ContextConsumer} from "../ModalContextProvider/ModalContextProvider";
 import {toggleModalWindow} from "../../store/actions/app";
 import { editMovie } from "../../store/actions/movies";
 import {connect} from "react-redux";
-import createMovie from "../../api/createMovie";
 
-class EditMovieModalWindow extends Component {
-    constructor(props) {
-        super(props);
+import {Formik} from "formik";
+import { validationSchema } from "../../api/formik/validationSchema";
 
-        const {app, editMovie} = this.props;
-        const {movieToEdit} = app;
+function EditMovieModalWindow (props) {
 
-        console.log('EditMovieModalWindow data 15 ====', this.props);
+    const {app, editMovie, toggleModalWindow} = props;
+    const {movieToEdit} = app;
 
-        this.state = {
-            title: movieToEdit.title,
-            description: movieToEdit.description,
-        };
+    const [title, setTitle] = useState(movieToEdit.title);
+    const [description, setDescription] = useState(movieToEdit.description);
+    const [releaseDate, setReleaseDate] = useState(movieToEdit.releaseDate);
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.resetValues = this.resetValues.bind(this);
-    }
+    console.log('movieToEdit title===', title);
 
-    handleChange(event) {
+
+/*
+    const handleChange = (event) => {
         const updatedField = event.target.id;
-        this.setState({[updatedField]: event.target.value});
+        setState({[updatedField]: event.target.value});
+    }
+*/
+
+    const handleSubmit = (values) => {
+        editMovie(values);
+        toggleModalWindow();
+        values.preventDefault();
     }
 
-    handleSubmit(event) {
-        console.log('Измененные данные: ' + this.state.title + this.state.description);
-        event.preventDefault();
+    const resetValues =(e) => {
+        console.log('resetValues !!!');
+
+        e.preventDefault();
     }
 
-    resetValues() {
-        this.setState({
-            title: '',
-            description: ''
-        })
-    }
+    return (
+        <div className="edit-movie-modal-window">
+            <h2>Edit Movie</h2>
 
+            <Formik initialValues={{
+                id: movieToEdit.id,
+                title: title,
+                description: description,
+                releaseDate: releaseDate
+            }}
+                    validateOnBlur
+                    onSubmit={values => handleSubmit(values)}
+                    validationSchema={validationSchema}
+            >
+                {(formik) => (
+                    <>
+                        <div>
+                            <label htmlFor='title'>Title: *</label><br/>
+                            <input id='title'
+                                   type="text"
+                                   value={formik.values.title}
+                                   onChange={formik.handleChange}
+                                   onBlur={formik.handleBlur}
+                            />
+                        </div>
+                        {formik.touched.title && formik.errors.title && <p className={'error'}>{formik.errors.title}</p>}
+                        <br/>
+                        <div>
+                            <label htmlFor='description'>Description: *</label><br/>
+                            <input id='description'
+                                   type="text"
+                                   value={formik.values.description}
+                                   onChange={formik.handleChange}
+                                   onBlur={formik.handleBlur}
+                            />
+                        </div>
+                        {formik.touched.description && formik.errors.description && <p className={'error'}>{formik.errors.description}</p>}
+                        <br/>
+                        <div>
+                            <label htmlFor='releaseDate'>Release Date: *</label><br/>
+                            <input id='releaseDate'
+                                   type="text"
+                                   value={formik.values.releaseDate}
+                                   onChange={formik.handleChange}
+                                   onBlur={formik.handleBlur}
+                            />
+                        </div>
+                        {formik.touched.releaseDate && formik.errors.releaseDate && <p className={'error'}>{formik.errors.releaseDate}</p>}
+                        <br/>
 
-    render() {
-        const {toggleModalWindow, editMovie, app} = this.props;
-        const {movieToEdit} = app;
+                        <div>
+                            <button disabled={ !formik.dirty || !formik.isValid }
+                                    onClick={formik.handleSubmit}
+                                    type={'submit'}
+                                    className="button">Apply changes</button>
+                            <button onClick={resetValues} className="button">Reset</button>
+                            <button onClick={toggleModalWindow} className="button close-button">Close</button>
+                            <pre>{JSON.stringify(formik, null, 2)}</pre>
+                        </div>
 
-        const updatedMovie = {
-            id: movieToEdit.id,
-            title: this.state.title,
-            description: this.state.description,
-        };
+                    </>
+                )}
+            </Formik>
 
-        return (
-            <div className="edit-movie-modal-window">
-                <h2>Add Movie</h2>
-
-                <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <label htmlFor='title'>Title:</label>
-                        <input id='title' type="text" value={this.state.title} onChange={this.handleChange}/>
-                    </div>
-                    <div>
-                        <label htmlFor='description'>Description:</label>
-                        <input id='description' type="text" value={this.state.description}
-                               onChange={this.handleChange}/>
-                    </div>
-
-                    <input type="submit" value="Submit"/>
-                </form>
-                <div>
-                    <button onClick={() => editMovie(updatedMovie)} className="button">Apply changes</button>
-                    <button onClick={this.resetValues} className="button">Reset</button>
-                    <button onClick={toggleModalWindow} className="button close-button">Close</button>
-                </div>
-            </div>
-        )
-    }
+        </div>
+    )
 };
 
 function mapStateToProps(state) {
