@@ -76,6 +76,6 @@ export const getMovies = () => {
 export const asyncGetMovies = () => dispatch => (setTimeout(() => {
     console.log('I GOT MOVIES');
     dispatch({type: "GET_MOVIES", payload: movies})
-}, 1000));
+}, 200));
 
 

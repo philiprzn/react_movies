@@ -4,8 +4,9 @@ import {ContextConsumer} from "../ModalContextProvider/ModalContextProvider";
 import {toggleModalWindow} from "../../store/actions/app";
 import { editMovie } from "../../store/actions/movies";
 import {connect} from "react-redux";
+import TextError from "../TextError/TextError";
 
-import {Formik} from "formik";
+import {Formik, Form, Field, ErrorMessage, useFormik} from "formik";
 import { validationSchema } from "../../api/formik/validationSchema";
 
 function EditMovieModalWindow (props) {
@@ -17,15 +18,14 @@ function EditMovieModalWindow (props) {
     const [description, setDescription] = useState(movieToEdit.description);
     const [releaseDate, setReleaseDate] = useState(movieToEdit.releaseDate);
 
-    console.log('movieToEdit title===', title);
+    const initialValues = {
+        id: movieToEdit.id,
+        title,
+        description,
+        releaseDate
+    };
 
-
-/*
-    const handleChange = (event) => {
-        const updatedField = event.target.id;
-        setState({[updatedField]: event.target.value});
-    }
-*/
+    const onSubmit = values => handleSubmit(values);
 
     const handleSubmit = (values) => {
         editMovie(values);
@@ -43,52 +43,31 @@ function EditMovieModalWindow (props) {
         <div className="edit-movie-modal-window">
             <h2>Edit Movie</h2>
 
-            <Formik initialValues={{
-                id: movieToEdit.id,
-                title: title,
-                description: description,
-                releaseDate: releaseDate
-            }}
+            <Formik initialValues={initialValues}
                     validateOnBlur
-                    onSubmit={values => handleSubmit(values)}
                     validationSchema={validationSchema}
+                    onSubmit={onSubmit}
             >
                 {(formik) => (
-                    <>
+                    <Form>
                         <div>
                             <label htmlFor='title'>Title: *</label><br/>
-                            <input id='title'
-                                   type="text"
-                                   value={formik.values.title}
-                                   onChange={formik.handleChange}
-                                   onBlur={formik.handleBlur}
-                            />
+                            <Field id='title' type="text" name='title'/>
                         </div>
-                        {formik.touched.title && formik.errors.title && <p className={'error'}>{formik.errors.title}</p>}
+                        <ErrorMessage name='title' component={TextError}/>
                         <br/>
                         <div>
                             <label htmlFor='description'>Description: *</label><br/>
-                            <input id='description'
-                                   type="text"
-                                   value={formik.values.description}
-                                   onChange={formik.handleChange}
-                                   onBlur={formik.handleBlur}
-                            />
+                            <Field id='description' type="text" name='description'/>
                         </div>
-                        {formik.touched.description && formik.errors.description && <p className={'error'}>{formik.errors.description}</p>}
+                        <ErrorMessage name='description' component={TextError}/>
                         <br/>
                         <div>
                             <label htmlFor='releaseDate'>Release Date: *</label><br/>
-                            <input id='releaseDate'
-                                   type="text"
-                                   value={formik.values.releaseDate}
-                                   onChange={formik.handleChange}
-                                   onBlur={formik.handleBlur}
-                            />
+                            <Field id='releaseDate' type="text" name='releaseDate'/>
                         </div>
-                        {formik.touched.releaseDate && formik.errors.releaseDate && <p className={'error'}>{formik.errors.releaseDate}</p>}
+                        <ErrorMessage name='releaseDate' component={TextError}/>
                         <br/>
-
                         <div>
                             <button disabled={ !formik.dirty || !formik.isValid }
                                     onClick={formik.handleSubmit}
@@ -98,11 +77,9 @@ function EditMovieModalWindow (props) {
                             <button onClick={toggleModalWindow} className="button close-button">Close</button>
                             <pre>{JSON.stringify(formik, null, 2)}</pre>
                         </div>
-
-                    </>
+                    </Form>
                 )}
             </Formik>
-
         </div>
     )
 };
@@ -121,3 +98,105 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditMovieModalWindow);
+
+
+/*
+<Formik initialValues={{
+    id: movieToEdit.id,
+    title: title,
+    description: description,
+    releaseDate: releaseDate
+}}
+        validateOnBlur
+        onSubmit={values => handleSubmit(values)}
+        validationSchema={validationSchema}
+>
+    {(formik) => (
+        <>
+            <div>
+                <label htmlFor='title'>Title: *</label><br/>
+                <input id='title'
+                       type="text"
+                       value={formik.values.title}
+                       onChange={formik.handleChange}
+                       onBlur={formik.handleBlur}
+                />
+            </div>
+            {formik.touched.title && formik.errors.title && <p className={'error'}>{formik.errors.title}</p>}
+            <br/>
+            <div>
+                <label htmlFor='description'>Description: *</label><br/>
+                <input id='description'
+                       type="text"
+                       value={formik.values.description}
+                       onChange={formik.handleChange}
+                       onBlur={formik.handleBlur}
+                />
+            </div>
+            {formik.touched.description && formik.errors.description && <p className={'error'}>{formik.errors.description}</p>}
+            <br/>
+            <div>
+                <label htmlFor='releaseDate'>Release Date: *</label><br/>
+                <input id='releaseDate'
+                       type="text"
+                       value={formik.values.releaseDate}
+                       onChange={formik.handleChange}
+                       onBlur={formik.handleBlur}
+                />
+            </div>
+            {formik.touched.releaseDate && formik.errors.releaseDate && <p className={'error'}>{formik.errors.releaseDate}</p>}
+            <br/>
+
+            <div>
+                <button disabled={ !formik.dirty || !formik.isValid }
+                        onClick={formik.handleSubmit}
+                        type={'submit'}
+                        className="button">Apply changes</button>
+                <button onClick={resetValues} className="button">Reset</button>
+                <button onClick={toggleModalWindow} className="button close-button">Close</button>
+                <pre>{JSON.stringify(formik, null, 2)}</pre>
+            </div>
+
+        </>
+    )}
+</Formik>*/
+
+/*<form onSubmit={formik.handleSubmit}>
+    <div>
+        <label htmlFor='title'>Title:</label><br/>
+        <input id='title' name='title' type="text"
+               {...formik.getFieldProps('title')}
+        />
+    </div>
+    {formik.errors.title && <p className='error'>{formik.errors.title}</p>}
+    <br/>
+    <div>
+        <label htmlFor='description'>Description:</label><br/>
+        <input id='description' name='description' type="text"
+               {...formik.getFieldProps('description')}
+        />
+    </div>
+    {formik.errors.description && <p className='error'>{formik.errors.description}</p>}
+    <br/>
+    <div>
+        <label htmlFor='releaseDate'>Release Date: *</label><br/>
+        <input id='releaseDate'
+               type="text"
+            /!*value={formik.values.releaseDate}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}*!/
+               {...formik.getFieldProps('releaseDate')}
+        />
+    </div>
+    {formik.touched.releaseDate && formik.errors.releaseDate && <p className={'error'}>{formik.errors.releaseDate}</p>}
+    <br/>
+    <div>
+        <button disabled={ !formik.dirty || !formik.isValid }
+                onClick={formik.handleSubmit}
+                type={'submit'}
+                className="button">Apply changes</button>
+        <button onClick={resetValues} className="button">Reset</button>
+        <button onClick={toggleModalWindow} className="button close-button">Close</button>
+        <pre>{JSON.stringify(formik, null, 2)}</pre>
+    </div>
+</form>*/

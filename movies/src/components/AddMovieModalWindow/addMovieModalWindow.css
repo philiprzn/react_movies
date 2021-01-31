@@ -13,6 +13,9 @@
 }
 
 .error {
+    font-family: Helvetica, Geneva, Arial, sans-serif;
+
     color: #ff3232;
     font-weight: bold;
+    margin-bottom: 10px;
 }
