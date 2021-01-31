@@ -8,5 +8,11 @@
     /*height: 200px;*/
     background: #c8c8c8;
     margin: 0 auto;
-    margin-top: 10%;
+    margin-top: 5%;
+    padding-bottom: 5%;
+}
+
+.error {
+    color: #ff3232;
+    font-weight: bold;
 }

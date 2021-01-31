@@ -5,6 +5,7 @@ export default function createMovie(data) {
     return {
         id: uuidv4(),
         title: data.title,
-        description: data.description
+        description: data.description,
+        releaseDate: data.releaseDate
     }
 };

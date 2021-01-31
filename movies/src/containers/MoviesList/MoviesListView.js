@@ -21,12 +21,13 @@ const MovieListView = (props) => {
             <div className="moviesList-wrapper">
                 <MoviesSorting/>
                 {props.movies.length > 0 && <div className="moviesList">
-                    {filteredMovies.map(({title, description, id, rating}) =>
+                    {filteredMovies.map(({title, description, id, rating, releaseDate}) =>
                         <MovieCard title={title}
                                    description={description}
                                    key={id}
                                    id={id}
                                    rating={rating}
+                                   releaseDate={releaseDate}
                                    toggleModalWindow={props.toggleModalWindow}
                         />
                     )}

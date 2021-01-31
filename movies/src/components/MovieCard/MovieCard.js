@@ -3,7 +3,7 @@ import './movieCard.css';
 import PropTypes from 'prop-types';
 
 const MovieCard = (props) => {
-    const { title, description, id, rating, toggleModalWindow } = props;
+    const { title, description, id, rating, releaseDate, toggleModalWindow } = props;
 
     const deleteData = {
         modalWindowType: 'deleteMovie',
@@ -15,7 +15,8 @@ const MovieCard = (props) => {
             id,
             title,
             description,
-            rating
+            rating,
+            releaseDate
         }
     };
 
@@ -23,7 +24,8 @@ const MovieCard = (props) => {
         <div className="moviecard">
             <h3>{title}</h3>
             <p>{description}</p>
-            <p>{rating}</p>
+            <p>Rating: {rating}</p>
+            <p>Release Date: {releaseDate}</p>
             <div>
                 <button onClick={() => toggleModalWindow(deleteData)} className="button">Delete</button>
                 <button onClick={() => toggleModalWindow(editData)} className="button">Edit</button>
