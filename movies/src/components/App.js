@@ -10,31 +10,11 @@ import { connect } from 'react-redux';
 import { addMovie, getMovies }  from './../store/actions/movies';
 import { toggleModalWindow }  from './../store/actions/app';
 
-const newMovie = {
-    id: '123123',
-    title: "Movie4 from Redux",
-    description: "Description Redux",
-    rating: 3.3,
-    releaseDate: 7777
-};
-
 const MovieListWithLoading = WithLoading(MovieList);
 
 const App = (props) => {
     const { app, toggleModalWindow, movies } = props;
     const { isModalWindowOpen } = app;
-
-    // const [application, setApplication] = useState(app);
-    // const [isModalWindowOpen, toggleModalWindow] = useToggle(false);
-
-   /* const openModal = (type, params) => { // types, params
-        setApplication({...application, modalWindowType: type})
-        toggleModalWindow();
-    };
-
-    const closeModal = () => {
-        toggleModalWindow();
-    };*/
 
         return (
             <div className="app-wrapper">
