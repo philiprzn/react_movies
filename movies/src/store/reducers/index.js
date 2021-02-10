@@ -5,5 +5,5 @@ import app from './../reducers/app';
 
 export const rootReducer = combineReducers({
     movies,
-    app
+    app,
 });

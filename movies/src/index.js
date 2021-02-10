@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App";
 import {INITIAL_STATE} from "./initialState";
-
 import {Provider} from 'react-redux'
 import store from './store/store';
 
