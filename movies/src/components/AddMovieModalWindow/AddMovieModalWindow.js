@@ -4,8 +4,22 @@ import {connect} from "react-redux";
 import {toggleModalWindow} from "../../store/actions/app";
 import createMovie from "../../api/createMovie";
 import {addMovie} from "../../store/actions/movies";
-import {Formik} from "formik";
+import { useField, Form, Formik } from "formik";
 import { validationSchema } from "../../api/formik/validationSchema";
+
+const TextField = ({ label, ...props }) => {
+    const [field, meta, helpers] = useField(props);
+    return (
+        <>
+            <label>{label}</label>
+            <br/>
+            <input {...field} {...props} />
+            <br/>
+            {meta.touched && meta.error ? (<div className="error">{meta.error}</div>) : null}
+            <br/>
+        </>
+    );
+};
 
 function AddMovieModalWindow (props) {
     const {toggleModalWindow, addMovie} = props;
@@ -28,48 +42,14 @@ function AddMovieModalWindow (props) {
                     onSubmit={values => handleSubmit(values)}
                     validationSchema={validationSchema}
             >
-                {(formik) => (
-                    <>
-                        <div>
-                            <label htmlFor='title'>Title: *</label><br/>
-                            <input id='title'
-                                   type="text"
-                                   value={formik.values.title}
-                                   onChange={formik.handleChange}
-                                   onBlur={formik.handleBlur}
-                            />
-                        </div>
-                        {formik.touched.title && formik.errors.title && <p className={'error'}>{formik.errors.title}</p>}
-                        <br/>
-                        <div>
-                            <label htmlFor='description'>Description: *</label><br/>
-                            <input id='description'
-                                   type="text"
-                                   value={formik.values.description}
-                                   onChange={formik.handleChange}
-                                   onBlur={formik.handleBlur}
-                            />
-                        </div>
-                        {formik.touched.description && formik.errors.description && <p className={'error'}>{formik.errors.description}</p>}
-                        <br/>
-                        <div>
-                            <label htmlFor='releaseDate'>Release Date: *</label><br/>
-                            <input id='releaseDate'
-                                   type="text"
-                                   value={formik.values.releaseDate}
-                                   onChange={formik.handleChange}
-                                   onBlur={formik.handleBlur}
-                            />
-                        </div>
-                        {formik.touched.releaseDate && formik.errors.releaseDate && <p className={'error'}>{formik.errors.releaseDate}</p>}
-                        <br/>
-                        <p>* - Required</p>
-                        <div>
-                            <button disabled={ !formik.dirty || !formik.isValid } onClick={formik.handleSubmit} type={'submit'} className="button">Add Movie</button>
-                            <button onClick={toggleModalWindow} className="button close-button">Close</button>
-                            {/*<pre>{JSON.stringify(formik, null, 2)}</pre>*/}
-                        </div>
-                    </>
+                {(props) => (
+                    <Form>
+                        <TextField name="title" type="text" label="Title" placeholder='type title here'/>
+                        <TextField name="description" type="text" label="Description" />
+                        <TextField name="releaseDate" type="text" label="ReleaseDate" />
+                        <button type="submit" className="button">Submit</button>
+                        <button onClick={toggleModalWindow} className="button close-button">Close</button>
+                    </Form>
                 )}
             </Formik>
         </div>
@@ -84,3 +64,45 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(null, mapDispatchToProps)(AddMovieModalWindow);
+
+/*<>
+<div>
+    <label htmlFor='title'>Title: *</label><br/>
+    <input id='title'
+           type="text"
+           value={props.values.title}
+           onChange={props.handleChange}
+           onBlur={props.handleBlur}
+    />
+</div>
+{props.touched.title && props.errors.title && <p className={'error'}>{props.errors.title}</p>}
+<br/>
+<div>
+    <label htmlFor='description'>Description: *</label><br/>
+    <input id='description'
+           type="text"
+           value={props.values.description}
+           onChange={props.handleChange}
+           onBlur={props.handleBlur}
+    />
+</div>
+{props.touched.description && props.errors.description && <p className={'error'}>{props.errors.description}</p>}
+<br/>
+<div>
+    <label htmlFor='releaseDate'>Release Date: *</label><br/>
+    <input id='releaseDate'
+           type="text"
+           value={props.values.releaseDate}
+           onChange={props.handleChange}
+           onBlur={props.handleBlur}
+    />
+</div>
+{props.touched.releaseDate && props.errors.releaseDate && <p className={'error'}>{props.errors.releaseDate}</p>}
+<br/>
+<p>* - Required</p>
+<div>
+    <button disabled={ !props.dirty || !props.isValid } onClick={props.handleSubmit} type={'submit'} className="button">Add Movie</button>
+    <button onClick={toggleModalWindow} className="button close-button">Close</button>
+    {/!*<pre>{JSON.stringify(props, null, 2)}</pre>*!/}
+</div>
+</>*/

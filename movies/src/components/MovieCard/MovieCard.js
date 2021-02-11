@@ -1,6 +1,7 @@
 import React from 'react';
 import './movieCard.css';
 import PropTypes from 'prop-types';
+import {Link} from "react-router-dom";
 
 const MovieCard = (props) => {
     const { title, description, id, rating, releaseDate, toggleModalWindow } = props;
@@ -22,7 +23,9 @@ const MovieCard = (props) => {
 
     return (
         <div className="moviecard">
-            <h3>{title}</h3>
+            <Link to={`/film/${id}`}>
+                <h3>{title}</h3>
+            </Link>
             <p>{description}</p>
             <p>Rating: {rating}</p>
             <p>Release Date: {releaseDate}</p>

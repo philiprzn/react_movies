@@ -1,8 +1,8 @@
 .movie-details {
-    width: 100%;
+    /*width: 100%;*/
     background: linear-gradient(#d05555, #301616);
-    margin-bottom: 30px;
-    padding-bottom: 10px;
+    /*margin-bottom: 30px;*/
+    padding: 20px 10px;
 }
 
 .movie {

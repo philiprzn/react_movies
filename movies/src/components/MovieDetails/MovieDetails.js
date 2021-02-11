@@ -1,25 +1,34 @@
 import React from 'react';
 import './movieDetails.css'
+import {useParams} from "react-router-dom";
+import {toggleModalWindow} from "../../store/actions/app";
+import {asyncGetMovies} from "../../store/actions/movies";
+import {connect} from "react-redux";
 
 
 const MovieDetails = (props) => {
+    let { id } = useParams();
+    console.log('MovieDetails movies', props.movies);
+    const currentMovie = props.movies.find(movie => movie.id === id);
+    
+    
     return (
         <div className="movie-details">
-            <h1>Movie Details</h1>
             <div className='movie'>
                 <div className='movie__logo'>
                     <img src="#" alt="movie-logo"/>
                 </div>
                 <div className='movie__info'>
                     <div className="movie__header">
-                        <h2 className="movie__title">Movie1-2014</h2>
-                        <p className='movie__rating'>9.2</p>
+                        <h2 className="movie__title">{currentMovie.title}</h2>
+                        <p className='movie__rating'>{currentMovie.rating}</p>
                     </div>
                     <p>Oscar winning movie</p>
                     <div className="movie__time">
-                        <p>1994</p>
-                        <p>154 min</p>
+                        <p>{currentMovie.releaseDate}</p>
+                        <p>{currentMovie.duration} min</p>
                     </div>
+                    <p className="movie__description">{currentMovie.description}</p>
                     <p className="movie__description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab
                         architecto aut, beatae culpa exercitationem in odit praesentium veniam voluptates voluptatibus!
                         Aperiam aspernatur dicta dolorem ducimus ex exercitationem facere impedit iusto maxime minus
@@ -35,4 +44,17 @@ const MovieDetails = (props) => {
     )
 };
 
-export default MovieDetails;
+function mapStateToProps(state) {
+    const {movies, app} = state;
+
+    return {movies, app};
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        toggleModalWindow: (type) => dispatch(toggleModalWindow(type)),
+        onGetMovies: () => dispatch(asyncGetMovies())
+    }
+};
+
+export default React.memo(connect(mapStateToProps, null)(MovieDetails));

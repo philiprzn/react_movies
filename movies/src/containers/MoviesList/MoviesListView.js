@@ -3,6 +3,7 @@ import './moviesList.css';
 import MovieCard from "../../components/MovieCard/MovieCard";
 import MoviesSorting from "../../components/MoviesSorting/MoviesSorting";
 import {SORTING_HANDLER_FUNCTIONS} from "../../api/sortingHandlerFunctions";
+import {Link} from "react-router-dom";
 
 const MovieListView = (props) => {
 
@@ -20,21 +21,25 @@ const MovieListView = (props) => {
         <>
             <div className="moviesList-wrapper">
                 <MoviesSorting/>
-                {props.movies.length > 0 && <div className="moviesList">
+                {props.movies.length > 0 && <ul className="moviesList">
                     {filteredMovies.map(({title, description, id, rating, releaseDate}) =>
-                        <MovieCard title={title}
-                                   description={description}
-                                   key={id}
-                                   id={id}
-                                   rating={rating}
-                                   releaseDate={releaseDate}
-                                   toggleModalWindow={props.toggleModalWindow}
-                        />
+
+                        <li key={id}>
+                                <MovieCard title={title}
+                                           description={description}
+                                           key={id}
+                                           id={id}
+                                           rating={rating}
+                                           releaseDate={releaseDate}
+                                           toggleModalWindow={props.toggleModalWindow}
+                                />
+                        </li>
                     )}
-                </div>}
+                </ul>}
             </div>
         </>
     )
 };
+
 
 export default React.memo(MovieListView);

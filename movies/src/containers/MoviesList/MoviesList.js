@@ -3,6 +3,7 @@ import MoviesListView from "./MoviesListView";
 import {toggleModalWindow} from "../../store/actions/app";
 import {connect} from "react-redux";
 import {asyncGetMovies} from "../../store/actions/movies";
+import {Link} from "react-router-dom";
 
 function MoviesList(props) {
     const {movies, app, toggleModalWindow} = props;
