@@ -18,8 +18,13 @@ import {
     Route,
     Link,
     NavLink,
-    useParams
+    useParams,
+    useLocation,
+    Redirect
 } from "react-router-dom";
+
+const useQuery = () => new URLSearchParams(useLocation().search);
+
 
 const App = (props) => {
     const { app, toggleModalWindow, movies } = props;
@@ -45,17 +50,19 @@ const App = (props) => {
                     <Switch>
                         <Route path="/about"><About /></Route>
                         <Route path="/users"><Users /></Route>
-                        <Route path="/users"><Users /></Route>
                         <Route path="/user/:id"><User/></Route>
                         {/*<Route path="/user/:id" children={<User/>} />*/}
-                        <Route path="/"><Home /></Route>
-                        <Route component={NotFound}/>
+                        <Route exact path="/"><Home /></Route>
+                        {/*<Route path='*' exact={true} component={NotFound}/>*/}
+                        <Route path="/404">
+                            <NotFound />
+                        </Route>
+                        <Redirect from='*' to='/404' />
                     </Switch>
 
-                    {/*<Header />
+                    <Header />
                     <MoviesList />
-                    {isModalWindowOpen &&  <ModalWindow />}*/}
-                    <NotFound />
+                    {isModalWindowOpen &&  <ModalWindow />}
                 </div>
             </Router>
         );
@@ -101,10 +108,20 @@ function UsersList({users}) {
 }
 
 function Users() {
+    const query = useQuery();
+    const gender = query.get('gender');
+    const age = query.get('age');
+    
+    console.log('query', query);
+    console.log('age', age);
+
+    let filtredUsers = gender ? users.filter(user => user.gender === gender) : users;
+    filtredUsers = age ? filtredUsers.filter(user => user.age >= age) : filtredUsers;
+
     return (
         <>
             <h2>Users</h2>
-            <UsersList users={users}></UsersList>
+            <UsersList users={filtredUsers}></UsersList>
         </>
     );
 }
@@ -114,31 +131,31 @@ const users = [
         id: 1,
         name: 'User1',
         age: 11,
-        sex: 'male'
+        gender: 'male'
     },
     {
         id: 2,
         name: 'User2',
         age: 22,
-        sex: 'male'
+        gender: 'female'
     },
     {
         id: 3,
         name: 'User3',
         age: 33,
-        sex: 'male'
+        gender: 'male'
     },
     {
         id: 4,
         name: 'User4',
         age: 44,
-        sex: 'male'
+        gender: 'female'
     },
     {
         id: 5,
         name: 'User5',
         age: 55,
-        sex: 'male'
+        gender: 'male'
     }
 ];
 
