@@ -54,6 +54,7 @@ const App = (props) => {
                         {/*<Route path="/user/:id" children={<User/>} />*/}
                         <Route exact path="/"><Home /></Route>
                         {/*<Route path='*' exact={true} component={NotFound}/>*/}
+                        <Route path="/film/:id" render={({location}) => <MovieDetails />} />
                         <Route path="/404">
                             <NotFound />
                         </Route>
