@@ -52,9 +52,10 @@ const App = (props) => {
                         <Route component={NotFound}/>
                     </Switch>
 
-                    <Header />
+                    {/*<Header />
                     <MoviesList />
-                    {isModalWindowOpen &&  <ModalWindow />}
+                    {isModalWindowOpen &&  <ModalWindow />}*/}
+                    <NotFound />
                 </div>
             </Router>
         );
