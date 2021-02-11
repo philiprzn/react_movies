@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 
 const MovieDetails = (props) => {
     let { id } = useParams();
-    console.log('MovieDetails movies', props.movies);
+    console.log('MovieDetails movies', props);
     const currentMovie = props.movies.find(movie => movie.id === id);
     
     
