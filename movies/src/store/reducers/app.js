@@ -23,6 +23,11 @@ function app(state = apa, action = {calledMovieId: null, movieToEdit: null}) {
                 ...state,
                 filterTypeArray: action.payload
             };
+        case ACTIONS.CHANGE_SEARCHING_VALUES:
+            return {
+                ...state,
+                searchingValues: action.payload
+            }
         default:
             return state;
     }

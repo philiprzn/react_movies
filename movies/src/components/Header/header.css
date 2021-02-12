@@ -21,3 +21,8 @@
     cursor: pointer;
     margin: 7px;
 }
+
+.search-input {
+    width: 220px;
+    margin: 5px 10px;
+}

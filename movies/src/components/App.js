@@ -73,6 +73,7 @@ const App = (props) => {
                     {/*<Header />
                     <MoviesList />*/}
                     {isModalWindowOpen &&  <ModalWindow />}
+                    {/*<Footer />*/}
                 </div>
             </Router>
         );

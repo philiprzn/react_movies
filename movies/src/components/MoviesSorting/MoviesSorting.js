@@ -25,7 +25,7 @@ const MoviesSorting = (props) => {
             checkedArray.splice(currentIndex, 1)
         }
 
-        props.handleFilterChange(checkedArray)
+        props.handleFilterChange(checkedArray);
     };
 
     return (

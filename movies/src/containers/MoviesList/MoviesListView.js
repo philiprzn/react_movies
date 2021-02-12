@@ -7,15 +7,26 @@ import {Link} from "react-router-dom";
 
 const MovieListView = (props) => {
 
-    const {movies, filterTypeArray, sortingType} = props;
+    const {movies, filterTypeArray, sortingType, searchingValues} = props;
 
-    const moviesForRender = useMemo(() => filterTypeArray.length === 0 ? [...movies] : movies.filter(movie => {
+    const searchingMovies = searchingValues ?
+        movies.filter(movie => ~movie.title.toLowerCase().indexOf(searchingValues)) : movies;
+    
+    // console.log('MovieListView searchingMovies', searchingMovies );
+
+    /*const moviesForRender = useMemo(() => filterTypeArray.length === 0 ? [...movies] : movies.filter(movie => {
         return movie.genre.some(item => {
             return filterTypeArray.some(value => value === item);
         });
-    }), [movies, filterTypeArray]);
+    }), [movies, filterTypeArray]);*/
 
-    const filteredMovies = useMemo(() => sortingType === 'none' ? moviesForRender : [...moviesForRender.sort(SORTING_HANDLER_FUNCTIONS[sortingType])], [movies, sortingType, filterTypeArray]);
+    const moviesForRender = useMemo(() => filterTypeArray.length === 0 ? [...searchingMovies] : searchingMovies.filter(movie => {
+        return movie.genre.some(item => {
+            return filterTypeArray.some(value => value === item);
+        });
+    }), [movies, filterTypeArray, searchingValues]);
+
+    const filteredMovies = useMemo(() => sortingType === 'none' ? moviesForRender : [...moviesForRender.sort(SORTING_HANDLER_FUNCTIONS[sortingType])], [movies, sortingType, filterTypeArray, searchingValues]);
 
     return (
         <>

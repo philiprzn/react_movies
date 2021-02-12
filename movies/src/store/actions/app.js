@@ -1,6 +1,6 @@
 import constants from "./../../store/actionTypes";
 
-const {TOGGLE_MODAL_WINDOW, CHANGE_SORTING_VALUE, CHANGE_FILTERING_VALUES} = constants;
+const {TOGGLE_MODAL_WINDOW, CHANGE_SORTING_VALUE, CHANGE_FILTERING_VALUES, CHANGE_SEARCHING_VALUES} = constants;
 
 export const toggleModalWindow = (data = {}) => {
     return {
@@ -19,6 +19,13 @@ export const handleSortChange = (sortingValue) => {
 export const handleFilterChange = (filteringValues) => {
     return {
         type: CHANGE_FILTERING_VALUES,
+        payload: filteringValues
+    }
+};
+
+export const handleSearchChange = (filteringValues) => {
+    return {
+        type: CHANGE_SEARCHING_VALUES,
         payload: filteringValues
     }
 };

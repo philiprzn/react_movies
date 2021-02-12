@@ -17,8 +17,6 @@ export const deleteMovie = (movieId) => {
 };
 
 export const editMovie = (movieToEdit) => {
-    console.log('src\\store\\actions\\movies.js  movieToEdit ===', movieToEdit);
-    
     return {
         type: EDIT_MOVIE,
         payload: movieToEdit
@@ -32,7 +30,6 @@ export const getMovies = () => {
 };
 
 export const asyncGetMovies = () => dispatch => (setTimeout(() => {
-    console.log('I GOT MOVIES');
     dispatch({type: "GET_MOVIES", payload: movies})
 }, 200));
 

@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 
 function MoviesList(props) {
     const {movies, app, toggleModalWindow} = props;
-    const {sortingType, filterTypeArray} = app;
+    const {sortingType, filterTypeArray, searchingValues} = app;
 
     useEffect(() => {
         props.onGetMovies();
@@ -20,6 +20,7 @@ function MoviesList(props) {
                 filterTypeArray={filterTypeArray}
                 toggleModalWindow={toggleModalWindow}
                 sortingType={sortingType}
+                searchingValues={searchingValues}
             />}
         </>
     );

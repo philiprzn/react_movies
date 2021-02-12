@@ -11,6 +11,7 @@ export const INITIAL_STATE = {
         calledMovieId: null,
         sortingType: 'none',
         filterTypeArray: [],
+        searchingValues: null,
     }
 };
 
