@@ -6,6 +6,7 @@ import {handleFilterChange, toggleModalWindow} from "../../store/actions/app";
 import {useLocation} from "react-router-dom";
 import History from "../History/History";
 import { handleSearchChange } from "../../store/actions/app";
+import {asyncGetMovies} from "../../store/actions/movies";
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
@@ -36,7 +37,7 @@ const Header = (props) => {
 
         History.push(`/search?q=${inputValue}`);
 
-        // props.handleSearchChange(inputValue.toLowerCase());
+        props.onGetMovies(inputValue);
         setInputValue('');
     }
 
@@ -71,7 +72,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => {
     return {
         toggleModalWindow: (type) => dispatch(toggleModalWindow(type)),
-        handleSearchChange: (value) => dispatch(handleSearchChange(value)),
+        onGetMovies: (value) => dispatch(asyncGetMovies(value))
     }
 };
 

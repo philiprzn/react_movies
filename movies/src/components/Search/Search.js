@@ -3,9 +3,6 @@ import Header from "../Header/Header";
 import MoviesList from "../../containers/MoviesList/MoviesList";
 
 function Search(props) {
-
-    const [] = useState('');
-
     return (
         <>
             <Header/>

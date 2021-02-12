@@ -9,9 +9,9 @@ function MoviesList(props) {
     const {movies, app, toggleModalWindow} = props;
     const {sortingType, filterTypeArray, searchingValues} = app;
 
-    useEffect(() => {
+    /*useEffect(() => {
         props.onGetMovies();
-    }, []);
+    }, []);*/
 
     return (
         <>
@@ -21,10 +21,10 @@ function MoviesList(props) {
                 toggleModalWindow={toggleModalWindow}
                 sortingType={sortingType}
                 searchingValues={searchingValues}
-            />}
+            />
         </>
     );
-}
+};
 
 function mapStateToProps(state) {
     const {movies, app} = state;
@@ -35,7 +35,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => {
     return {
         toggleModalWindow: (type) => dispatch(toggleModalWindow(type)),
-        onGetMovies: () => dispatch(asyncGetMovies())
+        onGetMovies: (value) => dispatch(asyncGetMovies(value))
     }
 };
 
