@@ -44,6 +44,9 @@
 }
 
 .movie__rating {
+    max-width: 52px;
+    max-height: 52px;
+
     margin-left: 20px;
     font-size: 26px;
     padding: 10px;

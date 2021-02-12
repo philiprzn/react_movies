@@ -11,6 +11,8 @@ import { addMovie, getMovies }  from './../store/actions/movies';
 import { toggleModalWindow }  from './../store/actions/app';
 import MovieDetails from "./MovieDetails/MovieDetails";
 import NotFound from "./NotFound/NotFound";
+import History from "./History/History";
+import Search from "./Search/Search";
 
 import {
     BrowserRouter as Router,
@@ -31,7 +33,7 @@ const App = (props) => {
     const { isModalWindowOpen } = app;
 
         return (
-            <Router>
+            <Router history={History}>
                 <div>
                     <nav>
                         <ul>
@@ -44,6 +46,9 @@ const App = (props) => {
                             <li>
                                 <NavLink to="/users">Users</NavLink>
                             </li>
+                            <li>
+                                <NavLink to="/search">Search</NavLink>
+                            </li>
                         </ul>
                     </nav>
 
@@ -51,18 +56,22 @@ const App = (props) => {
                         <Route path="/about"><About /></Route>
                         <Route path="/users"><Users /></Route>
                         <Route path="/user/:id"><User/></Route>
-                        {/*<Route path="/user/:id" children={<User/>} />*/}
+                        <Route path="/search"><Search/></Route>
                         <Route exact path="/"><Home /></Route>
-                        {/*<Route path='*' exact={true} component={NotFound}/>*/}
-                        <Route path="/film/:id" render={({location}) => <MovieDetails />} />
+                        <Route path="/film/:id" render={({location}) =>
+                            <>
+                                <MovieDetails />
+                                <MoviesList />
+                            </>}
+                        />
                         <Route path="/404">
                             <NotFound />
                         </Route>
                         <Redirect from='*' to='/404' />
                     </Switch>
 
-                    <Header />
-                    <MoviesList />
+                    {/*<Header />
+                    <MoviesList />*/}
                     {isModalWindowOpen &&  <ModalWindow />}
                 </div>
             </Router>
@@ -88,6 +97,7 @@ function User() {
             <h1>ID: { id }</h1>
             <p>{user.name}</p>
             <p>{user.age}</p>
+            <p>{user.gender}</p>
         </>
     )
 }
