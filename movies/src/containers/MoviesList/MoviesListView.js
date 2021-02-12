@@ -17,12 +17,6 @@ const MovieListView = (props) => {
         });
     }), [movies, filterTypeArray]);
 
-    /*const moviesForRender = useMemo(() => filterTypeArray.length === 0 ? [...searchingMovies] : searchingMovies.filter(movie => {
-        return movie.genre.some(item => {
-            return filterTypeArray.some(value => value === item);
-        });
-    }), [movies, filterTypeArray, searchingValues]);*/
-
     const filteredMovies = useMemo(() => sortingType === 'none' ? moviesForRender : [...moviesForRender.sort(SORTING_HANDLER_FUNCTIONS[sortingType])], [movies, sortingType, filterTypeArray, searchingValues]);
 
     return (
@@ -45,7 +39,7 @@ const MovieListView = (props) => {
                                 </li>
                             )}
                         </ul>
-                    : <p>NO MOVIES FOUND</p>
+                    : <h2>NO MOVIES FOUND COMPONENT</h2>
                 }
             </div>
         </>
