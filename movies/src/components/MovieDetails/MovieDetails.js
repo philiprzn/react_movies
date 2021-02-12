@@ -1,6 +1,6 @@
 import React from 'react';
 import './movieDetails.css'
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {toggleModalWindow} from "../../store/actions/app";
 import {asyncGetMovies} from "../../store/actions/movies";
 import {connect} from "react-redux";
@@ -8,9 +8,7 @@ import {connect} from "react-redux";
 
 const MovieDetails = (props) => {
     let { id } = useParams();
-    console.log('MovieDetails movies', props);
     const currentMovie = props.movies.find(movie => movie.id === id);
-    
     
     return (
         <div className="movie-details">
@@ -23,6 +21,7 @@ const MovieDetails = (props) => {
                         <h2 className="movie__title">{currentMovie.title}</h2>
                         <p className='movie__rating'>{currentMovie.rating}</p>
                     </div>
+                    <Link className='home-link' to='/'>Search</Link>
                     <p>Oscar winning movie</p>
                     <div className="movie__time">
                         <p>{currentMovie.releaseDate}</p>

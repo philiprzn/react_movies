@@ -40,7 +40,7 @@ const App = (props) => {
                             <li>
                                 <NavLink to="/">Home</NavLink>
                             </li>
-                            <li>
+                            {/*<li>
                                 <NavLink to="/about">About</NavLink>
                             </li>
                             <li>
@@ -48,17 +48,18 @@ const App = (props) => {
                             </li>
                             <li>
                                 <NavLink to="/search">Search</NavLink>
-                            </li>
+                            </li>*/}
                         </ul>
                     </nav>
 
                     <Switch>
+                        {/*<Route exact path="/"><Home /></Route>*/}
                         <Route path="/about"><About /></Route>
                         <Route path="/users"><Users /></Route>
                         <Route path="/user/:id"><User/></Route>
-                        <Route path="/search"><Search/></Route>
-                        <Route exact path="/"><Home /></Route>
-                        <Route path="/film/:id" render={({location}) =>
+                        <Route exact path="/search"><Search/></Route>
+                        <Redirect exact from='/' to='/search' />
+                        <Route exact path="/film/:id" render={({location}) =>
                             <>
                                 <MovieDetails />
                                 <MoviesList />

@@ -1,6 +1,6 @@
 .movie-details {
     /*width: 100%;*/
-    background: linear-gradient(#d05555, #301616);
+    background: linear-gradient(#f0a5a5, #d05555);
     /*margin-bottom: 30px;*/
     padding: 20px 10px;
 }
@@ -28,6 +28,7 @@
     width: 80%;
     margin-left: 50px;
     text-align: left;
+    position: relative;
 }
 
 .movie__info p {
@@ -60,4 +61,10 @@
 
 .movie__time p {
     padding: 15px;
+}
+
+.home-link {
+    position: absolute;
+    right: 0;
+    top: -20px;
 }

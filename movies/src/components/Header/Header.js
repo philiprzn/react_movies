@@ -16,7 +16,7 @@ const Header = (props) => {
         modalWindowType: 'addMovie'
     }
     
-    console.log('Header searchingValues',searchingValues);
+    // console.log('Header searchingValues',searchingValues);
 
     const [query, setQuery] = useState('');
     const [inputValue, setInputValue] = useState('');
