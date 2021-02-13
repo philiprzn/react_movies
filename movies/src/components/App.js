@@ -12,21 +12,15 @@ import { toggleModalWindow }  from './../store/actions/app';
 import MovieDetails from "./MovieDetails/MovieDetails";
 import NotFound from "./NotFound/NotFound";
 import History from "./History/History";
-import Search from "./Search/Search";
 
 import {
     BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    NavLink,
-    useParams,
-    useLocation,
-    Redirect
+    Switch, Route, Link,
+    NavLink, useParams,
+    useLocation, Redirect
 } from "react-router-dom";
 
 const useQuery = () => new URLSearchParams(useLocation().search);
-
 
 const App = (props) => {
     const { app, toggleModalWindow, movies } = props;
@@ -35,12 +29,12 @@ const App = (props) => {
         return (
             <Router history={History}>
                 <div>
-                    <nav>
+                    {/*<nav>
                         <ul>
                             <li>
                                 <NavLink to="/">Home</NavLink>
                             </li>
-                            {/*<li>
+                            <li>
                                 <NavLink to="/about">About</NavLink>
                             </li>
                             <li>
@@ -48,33 +42,28 @@ const App = (props) => {
                             </li>
                             <li>
                                 <NavLink to="/search">Search</NavLink>
-                            </li>*/}
+                            </li>
                         </ul>
-                    </nav>
+                    </nav>*/}
 
                     <Switch>
                         {/*<Route exact path="/"><Home /></Route>*/}
-                        <Route path="/about"><About /></Route>
+                        {/*<Route path="/about"><About /></Route>
                         <Route path="/users"><Users /></Route>
                         <Route path="/user/:id"><User/></Route>
                         <Route exact path="/search"><Search/></Route>
-                        <Redirect exact from='/' to='/search' />
-                        <Route exact path="/film/:id" render={({location}) =>
-                            <>
-                                <MovieDetails />
-                                <MoviesList />
-                            </>}
-                        />
-                        <Route path="/404">
-                            <NotFound />
-                        </Route>
+                        <Route exact path="/search/:query"><Search/></Route>
+                        <Redirect exact from='/' to='/search' />*/}
+
+                        <Route exact path="/"><Header /></Route>
+                        <Route exact path="/film/:id" render={({location}) => <MovieDetails />}/>
+                        <Route path="/404"><NotFound /></Route>
                         <Redirect from='*' to='/404' />
                     </Switch>
 
-                    {/*<Header />
-                    <MoviesList />*/}
+                    <MoviesList />
                     {isModalWindowOpen &&  <ModalWindow />}
-                    {/*<Footer />*/}
+                    <Footer />
                 </div>
             </Router>
         );
@@ -125,16 +114,13 @@ function Users() {
     const gender = query.get('gender');
     const age = query.get('age');
     
-    console.log('query', query);
-    console.log('age', age);
-
-    let filtredUsers = gender ? users.filter(user => user.gender === gender) : users;
-    filtredUsers = age ? filtredUsers.filter(user => user.age >= age) : filtredUsers;
+    let filteredUsers = gender ? users.filter(user => user.gender === gender) : users;
+    filteredUsers = age ? filteredUsers.filter(user => user.age >= age) : filteredUsers;
 
     return (
         <>
             <h2>Users</h2>
-            <UsersList users={filtredUsers}></UsersList>
+            <UsersList users={filteredUsers}></UsersList>
         </>
     );
 }

@@ -4,12 +4,11 @@ import MovieCard from "../../components/MovieCard/MovieCard";
 import MoviesSorting from "../../components/MoviesSorting/MoviesSorting";
 import {SORTING_HANDLER_FUNCTIONS} from "../../api/sortingHandlerFunctions";
 import {Link} from "react-router-dom";
+import NoMoviesFound from "../../components/NoMoviesFound/NoMoviesFound";
 
 const MovieListView = (props) => {
 
     const {movies, filterTypeArray, sortingType, searchingValues} = props;
-    
-    // console.log('MovieListView searchingMovies', searchingMovies );
 
     const moviesForRender = useMemo(() => filterTypeArray.length === 0 ? [...movies] : movies.filter(movie => {
         return movie.genre.some(item => {
@@ -26,7 +25,6 @@ const MovieListView = (props) => {
                 { movies.length > 0
                     ?  <ul className="moviesList">
                             {filteredMovies.map(({title, description, id, rating, releaseDate}) =>
-
                                 <li key={id}>
                                     <MovieCard title={title}
                                                description={description}
@@ -39,12 +37,11 @@ const MovieListView = (props) => {
                                 </li>
                             )}
                         </ul>
-                    : <h2>NO MOVIES FOUND COMPONENT</h2>
+                    : <NoMoviesFound />
                 }
             </div>
         </>
     )
-};
-
+}
 
 export default React.memo(MovieListView);

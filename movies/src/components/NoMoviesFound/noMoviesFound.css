@@ -1,0 +1,15 @@
+.mo-movies-found-component {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    text-align: center;
+    height: 400px;
+}
+
+.mo-movies-found-component h2 {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    margin: 0px;
+}

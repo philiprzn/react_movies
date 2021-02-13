@@ -1,7 +1,12 @@
 .moviecard {
     width: 200px;
     height: 200px;
-    border: 1px solid #333333;
+    border: 1px solid #ffffff;
     padding: 20px 10px;
     margin: 20px;
+}
+
+.moviecard h3 {
+    color: #ffffff;
+    text-decoration: none;
 }

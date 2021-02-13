@@ -1,11 +1,14 @@
 .moviesList-wrapper {
-
+    color: white;
+    background: #424242;
+    padding-top: 20px;
 }
 
 .sorting-filtering-block {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    padding-bottom: 5px;
 }
 
 .sorting-block {
@@ -13,7 +16,6 @@
 }
 
 .moviesList {
-    padding: 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
