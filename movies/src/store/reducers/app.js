@@ -1,6 +1,7 @@
 import ACTIONS from '../actionTypes';
-import { INITIAL_STATE } from './../../initialState';
-const { app: apa } = INITIAL_STATE;
+import {INITIAL_STATE} from './../../initialState';
+
+const {app: apa} = INITIAL_STATE;
 
 function app(state = apa, action = {calledMovieId: null, movieToEdit: null}) {
     switch (action.type) {
@@ -11,7 +12,7 @@ function app(state = apa, action = {calledMovieId: null, movieToEdit: null}) {
                 modalWindowType: action.payload.modalWindowType,
                 calledMovieId: action.payload.calledMovieId,
                 movieToEdit: action.payload.editedMovieData
-    };
+            };
         case ACTIONS.CHANGE_SORTING_VALUE:
             return {
                 ...state,

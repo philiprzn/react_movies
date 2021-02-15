@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, {useMemo} from 'react';
 import './moviesList.css';
 import MovieCard from "../../components/MovieCard/MovieCard";
 import MoviesSorting from "../../components/MoviesSorting/MoviesSorting";
@@ -22,22 +22,22 @@ const MovieListView = (props) => {
         <>
             <div className="moviesList-wrapper">
                 <MoviesSorting/>
-                { movies.length > 0
-                    ?  <ul className="moviesList">
-                            {filteredMovies.map(({title, description, id, rating, releaseDate}) =>
-                                <li key={id}>
-                                    <MovieCard title={title}
-                                               description={description}
-                                               key={id}
-                                               id={id}
-                                               rating={rating}
-                                               releaseDate={releaseDate}
-                                               toggleModalWindow={props.toggleModalWindow}
-                                    />
-                                </li>
-                            )}
-                        </ul>
-                    : <NoMoviesFound />
+                {movies.length > 0
+                    ? <ul className="moviesList">
+                        {filteredMovies.map(({title, description, id, rating, releaseDate}) =>
+                            <li key={id}>
+                                <MovieCard title={title}
+                                           description={description}
+                                           key={id}
+                                           id={id}
+                                           rating={rating}
+                                           releaseDate={releaseDate}
+                                           toggleModalWindow={props.toggleModalWindow}
+                                />
+                            </li>
+                        )}
+                    </ul>
+                    : <NoMoviesFound/>
                 }
             </div>
         </>

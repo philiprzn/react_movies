@@ -4,9 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 
 function NotFound () {
     let location = useLocation();
-    
-    console.log('NotFound ', location);
-    
+
     return (
         <div id="notfound">
             <div className="notfound">

@@ -9,7 +9,6 @@ const Checkbox = (props) => {
 const MoviesSorting = (props) => {
     const {app, movies} = props;
     const {filterTypeArray} = app;
-    // console.log('MoviesSorting filterType', filterType);
 
     const [checked, setChecked] = useState(filterTypeArray);
     const [localMovies, setLocalMovies] = useState(movies);

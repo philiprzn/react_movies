@@ -7,9 +7,9 @@ import {connect} from "react-redux";
 
 
 const MovieDetails = (props) => {
-    let { id } = useParams();
+    let {id} = useParams();
     const currentMovie = props.movies.find(movie => movie.id === id);
-    
+
     return (
         <div className="movie-details">
             <div className='movie'>

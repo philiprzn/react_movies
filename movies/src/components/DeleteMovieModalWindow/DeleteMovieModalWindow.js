@@ -6,8 +6,6 @@ import {connect} from "react-redux";
 
 const DeleteMovieModalWindow = (props) => {
     const { app, toggleModalWindow, deleteMovie } = props;
-    
-    console.log('DeleteMovieModalWindow props', props);
 
     return (
         <div className="delete-modal-window">
