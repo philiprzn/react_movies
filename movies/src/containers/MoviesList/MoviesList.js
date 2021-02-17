@@ -6,7 +6,7 @@ import {asyncGetMovies} from "../../store/actions/movies";
 import {Link, useLocation, withRouter} from "react-router-dom";
 import {movies} from "../../initialState";
 import useQuery from "../../customHooks/useQuery/useQuery";
-
+import {SORTING_HANDLER_FUNCTIONS} from "../../api/sortingHandlerFunctions";
 
 function MoviesList(props) {
     const {movies, app, toggleModalWindow, history, location, match} = props;
@@ -24,15 +24,27 @@ function MoviesList(props) {
         ? movies
         : movies.filter(movie => ~movie.title.toLowerCase().indexOf(q));
 
+    const moviesForRender = useMemo(() => filterTypeArray.length === 0
+        ? [...searchingMovies]
+        : searchingMovies.filter(movie => {
+            return movie.genre.some(item => {
+                return filterTypeArray.some(value => value === item);
+            });
+    }), [searchingMovies, filterTypeArray]);
+
+    const filteredMovies = useMemo(() => sortingType === 'none' ?
+        moviesForRender
+        : [...moviesForRender.sort(SORTING_HANDLER_FUNCTIONS[sortingType])]
+        , [movies, sortingType, filterTypeArray, searchingValues]);
 
     return (
         <>
             <MoviesListView
-                movies={searchingMovies}
-                filterTypeArray={filterTypeArray}
+                movies={filteredMovies}
                 toggleModalWindow={toggleModalWindow}
-                sortingType={sortingType}
-                searchingValues={searchingValues}
+                // filterTypeArray={filterTypeArray}
+                // sortingType={sortingType}
+                // searchingValues={searchingValues}
             />
         </>
     );

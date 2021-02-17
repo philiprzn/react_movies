@@ -5,7 +5,6 @@ import {toggleModalWindow} from "../../store/actions/app";
 import {asyncGetMovies} from "../../store/actions/movies";
 import {connect} from "react-redux";
 
-
 const MovieDetails = (props) => {
     let {id} = useParams();
     const currentMovie = props.movies.find(movie => movie.id === id);

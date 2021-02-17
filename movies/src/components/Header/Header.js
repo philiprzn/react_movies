@@ -31,8 +31,6 @@ const Header = (props) => {
         e.preventDefault();
 
         const query = inputValue ? inputValue : 'all';
-        // setQuery(inputValue);
-        console.log('submitAction inputValue', !!inputValue, query);
 
         History.push(`/?q=${query}`);
 

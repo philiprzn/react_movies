@@ -10,21 +10,13 @@ const MovieListView = (props) => {
 
     const {movies, filterTypeArray, sortingType, searchingValues} = props;
 
-    const moviesForRender = useMemo(() => filterTypeArray.length === 0 ? [...movies] : movies.filter(movie => {
-        return movie.genre.some(item => {
-            return filterTypeArray.some(value => value === item);
-        });
-    }), [movies, filterTypeArray]);
-
-    const filteredMovies = useMemo(() => sortingType === 'none' ? moviesForRender : [...moviesForRender.sort(SORTING_HANDLER_FUNCTIONS[sortingType])], [movies, sortingType, filterTypeArray, searchingValues]);
-
     return (
         <>
             <div className="moviesList-wrapper">
                 <MoviesSorting/>
                 {movies.length > 0
                     ? <ul className="moviesList">
-                        {filteredMovies.map(({title, description, id, rating, releaseDate}) =>
+                        {movies.map(({title, description, id, rating, releaseDate}) =>
                             <li key={id}>
                                 <MovieCard title={title}
                                            description={description}
@@ -42,6 +34,14 @@ const MovieListView = (props) => {
             </div>
         </>
     )
-}
+};
 
 export default React.memo(MovieListView);
+
+/*const moviesForRender = useMemo(() => filterTypeArray.length === 0 ? [...movies] : movies.filter(movie => {
+    return movie.genre.some(item => {
+        return filterTypeArray.some(value => value === item);
+    });
+}), [movies, filterTypeArray]);
+
+const filteredMovies = useMemo(() => sortingType === 'none' ? moviesForRender : [...moviesForRender.sort(SORTING_HANDLER_FUNCTIONS[sortingType])], [movies, sortingType, filterTypeArray, searchingValues]);*/
