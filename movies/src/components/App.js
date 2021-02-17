@@ -26,28 +26,146 @@ const App = (props) => {
     const {app} = props;
     const {isModalWindowOpen} = app;
 
-    return (
-        <Router history={History}>
-            <div>
-                <Switch>
-                    <Route exact path="/"><Header/></Route>
-                    <Route exact path="/film/:id" render={({location}) => <MovieDetails/>}/>
-                    <Route path="/404"><NotFound/></Route>
-                    <Redirect from='*' to='/404'/>
-                </Switch>
+        return (
+            <Router history={History}>
+                <div>
+                    {/*<nav>
+                        <ul>
+                            <li>
+                                <NavLink to="/">Home</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/about">About</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/users">Users</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/search">Search</NavLink>
+                            </li>
+                        </ul>
+                    </nav>*/}
 
-                <MoviesList/>
-                {isModalWindowOpen && <ModalWindow/>}
-                <Footer/>
-            </div>
-        </Router>
-    );
+                    <Switch>
+                        {/*<Route exact path="/"><Home /></Route>*/}
+                        <Route exact path="/">
+                            <>
+                                <Header />
+                            </>
+                        </Route>
+                        {/*<Route path="/about"><About /></Route>
+                        <Route path="/users"><Users /></Route>
+                        <Route path="/user/:id"><User/></Route>*/}
+                        {/*<Route exact path="/search"><Search/></Route>*/}
+                        {/*<Route exact path="/search/:query"><Search/></Route>*/}
+                        {/*<Redirect exact from='/' to='/search' />*/}
+
+                        <Route exact path="/film/:id" render={({location}) => <MovieDetails />}/>
+                        <Route path="/404"><NotFound /></Route>
+                        <Redirect from='*' to='/404' />
+                    </Switch>
+
+                    <MoviesList />
+                    {isModalWindowOpen &&  <ModalWindow />}
+                    <Footer />
+                </div>
+            </Router>
+        );
 };
 
-function mapStateToProps(state) {
-    const {movies, app} = state;
+function Home() {
+    return <h2>Home</h2>;
+}
 
-    return {movies, app};
+function About() {
+    return <h2>About</h2>;
+}
+
+function User() {
+    let { id } = useParams();
+    const user = users.find(user => user.id.toString() === id);
+
+    console.log('user', user);
+
+    return (
+        <>
+            <h1>ID: { id }</h1>
+            <p>{user.name}</p>
+            <p>{user.age}</p>
+            <p>{user.gender}</p>
+        </>
+    )
+}
+
+function UsersList({users}) {
+    const usersList = users.map(user => {
+        return (
+            <li key={user.id}>
+                <Link to={`/user/${user.id}`}>
+                    {user.name}
+                </Link>
+            </li>
+        )
+    })
+
+    return <ul>
+        {usersList}
+    </ul>
+}
+
+function Users() {
+    const query = useQuery();
+    const gender = query.get('gender');
+    const age = query.get('age');
+
+    let filteredUsers = gender ? users.filter(user => user.gender === gender) : users;
+    filteredUsers = age ? filteredUsers.filter(user => user.age >= age) : filteredUsers;
+
+    return (
+        <>
+            <h2>Users</h2>
+            <UsersList users={filteredUsers}></UsersList>
+        </>
+    );
+}
+
+const users = [
+    {
+        id: 1,
+        name: 'User1',
+        age: 11,
+        gender: 'male'
+    },
+    {
+        id: 2,
+        name: 'User2',
+        age: 22,
+        gender: 'female'
+    },
+    {
+        id: 3,
+        name: 'User3',
+        age: 33,
+        gender: 'male'
+    },
+    {
+        id: 4,
+        name: 'User4',
+        age: 44,
+        gender: 'female'
+    },
+    {
+        id: 5,
+        name: 'User5',
+        age: 55,
+        gender: 'male'
+    }
+];
+
+function mapStateToProps(state) {
+    const { movies, app } = state;
+
+    return { movies, app };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -58,3 +176,25 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+{/*<Header openModal={openModal} app={app} profileMenuData={profileMenuData}/>*/}
+{/*<ErrorBoundary>
+    <MovieList />
+</ErrorBoundary>*/}
+{/*<ErrorBoundary>
+    <MovieListWithLoading isLoading={false} movies={movies} deleteMovie={deleteMovie} editMovie={editMovie} openModal={openModal}/>
+</ErrorBoundary>*/}
+
+/*
+<div className="app-wrapper">
+    <Header />
+    <MovieList />
+    {isModalWindowOpen &&  <ModalWindow />}
+    {/!*<p>Window open: {isModalWindowOpen.toString()}</p>*!/}
+    {/!*<button onClick={() => props.addMovie(newMovie)}>AddMovie</button>*!/}
+    {/!*<button onClick={toggleModalWindow}>Toggle button</button>*!/}
+    {/!*<div>
+                    <button onClick={props.onGetMovies}>GET MOVIES</button>
+                </div>*!/}
+    <pre>{JSON.stringify(props, null, 2)}</pre>
+</div>*/

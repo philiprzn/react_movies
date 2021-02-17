@@ -3,23 +3,46 @@ import MoviesListView from "./MoviesListView";
 import {toggleModalWindow} from "../../store/actions/app";
 import {connect} from "react-redux";
 import {asyncGetMovies} from "../../store/actions/movies";
-import {Link, useLocation, withRouter} from "react-router-dom";
 import {movies} from "../../initialState";
 import useQuery from "../../customHooks/useQuery/useQuery";
 import {SORTING_HANDLER_FUNCTIONS} from "../../api/sortingHandlerFunctions";
+
+import {
+    BrowserRouter as Router,
+    Switch, Route, Link,
+    NavLink, useParams,
+    useLocation, Redirect, withRouter
+} from "react-router-dom";
+import {useHistory} from "react-router";
 
 function MoviesList(props) {
     const {movies, app, toggleModalWindow, history, location, match} = props;
     const {sortingType, filterTypeArray, searchingValues} = app;
 
+    let FCNPARAMS = useLocation();
+
     useEffect(() => {
         props.onGetMovies();
     }, []);
-    
-    // const params = new URLSearchParams(location.search);
-    const params = useQuery();
-    const q = params.get('q') || 'all';
 
+    // const params = useQuery();
+    const params = new URLSearchParams(location.search);
+    const q = params.get('q') || 'all';
+    // const q = params.get('q');
+
+    console.log('================================');
+    console.log('MoviesList FCNPARAMS', FCNPARAMS);
+
+    console.log('MoviesList location', location);
+    console.log('MoviesList match', match);
+    console.log('MoviesList history', history);
+    console.log('================================');
+
+
+    useEffect(() => {
+        console.log('useEffect params', q);
+    }, [params]);
+    
     const searchingMovies = q.toLowerCase() === 'all'
         ? movies
         : movies.filter(movie => ~movie.title.toLowerCase().indexOf(q));
