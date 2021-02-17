@@ -5,8 +5,8 @@ import {connect} from "react-redux";
 import {asyncGetMovies} from "../../store/actions/movies";
 import {Link, useLocation, withRouter} from "react-router-dom";
 import {movies} from "../../initialState";
+import useQuery from "../../customHooks/useQuery/useQuery";
 
-const useQuery = () => new URLSearchParams(useLocation().search);
 
 function MoviesList(props) {
     const {movies, app, toggleModalWindow, history, location, match} = props;
@@ -16,9 +16,8 @@ function MoviesList(props) {
         props.onGetMovies();
     }, []);
     
-    // console.log('MoviesList location search', location.search);
-    const params = useQuery();
     // const params = new URLSearchParams(location.search);
+    const params = useQuery();
     const q = params.get('q') || 'all';
 
     const searchingMovies = q.toLowerCase() === 'all'
@@ -52,5 +51,5 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-// export default React.memo(connect(mapStateToProps, mapDispatchToProps)(withRouter(MoviesList)));
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MoviesList));
+// export default React.memo(connect(mapStateToProps, mapDispatchToProps)(withRouter(MoviesList)));

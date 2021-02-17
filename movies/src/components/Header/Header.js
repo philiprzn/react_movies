@@ -15,35 +15,35 @@ const Header = (props) => {
     const {profileMenuData, title, searchingValues} = app;
     const payloadData = {
         modalWindowType: 'addMovie'
-    }
+    };
 
-    const [query, setQuery] = useState('');
     const [inputValue, setInputValue] = useState('');
 
-   /* useEffect(() => {
-        const params = new URLSearchParams(location.search);
+    // const [query, setQuery] = useState('');
+    /* useEffect(() => {
+         const params = new URLSearchParams(location.search);
 
-        const q = params.get('q');
-        setQuery(q ? q : '/');
-    }, []);*/
+         const q = params.get('q');
+         setQuery(q ? q : '/');
+     }, []);*/
 
     const submitAction = (e) => {
         e.preventDefault();
 
         const query = inputValue ? inputValue : 'all';
         // setQuery(inputValue);
-        console.log('submitAction inputValue', !!inputValue, query );
+        console.log('submitAction inputValue', !!inputValue, query);
 
         History.push(`/?q=${query}`);
 
         props.onGetMovies(inputValue);
         // props.onUpdateQuery(query);
         setInputValue('');
-    }
+    };
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
-    }
+    };
 
     return (
         <div className="header">
