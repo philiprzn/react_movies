@@ -14,9 +14,8 @@ import NotFound from "./NotFound/NotFound";
 import History from "./History/History";
 
 import {
-    BrowserRouter as Router,
-    Switch, Route, Link,
-    NavLink, useParams,
+    Router, Switch, Route,
+    Link, NavLink, useParams,
     useLocation, Redirect
 } from "react-router-dom";
 

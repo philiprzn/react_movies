@@ -13,7 +13,6 @@ import {
     NavLink, useParams,
     useLocation, Redirect, withRouter
 } from "react-router-dom";
-import {useHistory} from "react-router";
 
 function MoviesList(props) {
     const {movies, app, toggleModalWindow, history, location, match} = props;
