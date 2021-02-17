@@ -17,10 +17,9 @@ function MoviesList(props) {
     }, []);
     
     // console.log('MoviesList location search', location.search);
-    // const params = useQuery();
-    const params = new URLSearchParams(location.search);
-    const q = params.get('q');
-    console.log('MoviesList location QQQQ', q);
+    const params = useQuery();
+    // const params = new URLSearchParams(location.search);
+    const q = params.get('q') || 'all';
 
     const searchingMovies = q.toLowerCase() === 'all'
         ? movies
