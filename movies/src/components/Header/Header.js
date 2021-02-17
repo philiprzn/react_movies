@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {handleFilterChange, toggleModalWindow} from "../../store/actions/app";
 import {useLocation} from "react-router-dom";
 import History from "../History/History";
-import {handleSearchChange} from "../../store/actions/app";
+import {handleSearchChange, handleQueryChange} from "../../store/actions/app";
 import {asyncGetMovies} from "../../store/actions/movies";
 
 const useQuery = () => new URLSearchParams(useLocation().search);
@@ -20,21 +20,24 @@ const Header = (props) => {
     const [query, setQuery] = useState('');
     const [inputValue, setInputValue] = useState('');
 
-    useEffect(() => {
+   /* useEffect(() => {
         const params = new URLSearchParams(location.search);
 
         const q = params.get('q');
         setQuery(q ? q : '/');
-    }, []);
+    }, []);*/
 
     const submitAction = (e) => {
         e.preventDefault();
 
-        setQuery(inputValue);
+        const query = inputValue ? inputValue : 'all';
+        // setQuery(inputValue);
+        console.log('submitAction inputValue', !!inputValue, query );
 
-        History.push(`/search?q=${inputValue}`);
+        History.push(`/?q=${query}`);
 
         props.onGetMovies(inputValue);
+        // props.onUpdateQuery(query);
         setInputValue('');
     }
 
@@ -70,7 +73,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => {
     return {
         toggleModalWindow: (type) => dispatch(toggleModalWindow(type)),
-        onGetMovies: (value) => dispatch(asyncGetMovies(value))
+        onGetMovies: (value) => dispatch(asyncGetMovies(value)),
+        onUpdateQuery: (query) => dispatch(handleQueryChange(query))
     }
 };
 

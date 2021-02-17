@@ -3,20 +3,34 @@ import MoviesListView from "./MoviesListView";
 import {toggleModalWindow} from "../../store/actions/app";
 import {connect} from "react-redux";
 import {asyncGetMovies} from "../../store/actions/movies";
-import {Link} from "react-router-dom";
+import {Link, useLocation, withRouter} from "react-router-dom";
+import {movies} from "../../initialState";
+
+const useQuery = () => new URLSearchParams(useLocation().search);
 
 function MoviesList(props) {
-    const {movies, app, toggleModalWindow} = props;
+    const {movies, app, toggleModalWindow, history, location, match} = props;
     const {sortingType, filterTypeArray, searchingValues} = app;
 
-    /*useEffect(() => {
+    useEffect(() => {
         props.onGetMovies();
-    }, []);*/
+    }, []);
+    
+    // console.log('MoviesList location search', location.search);
+    // const params = useQuery();
+    const params = new URLSearchParams(location.search);
+    const q = params.get('q');
+    console.log('MoviesList location QQQQ', q);
+
+    const searchingMovies = q.toLowerCase() === 'all'
+        ? movies
+        : movies.filter(movie => ~movie.title.toLowerCase().indexOf(q));
+
 
     return (
         <>
             <MoviesListView
-                movies={movies}
+                movies={searchingMovies}
                 filterTypeArray={filterTypeArray}
                 toggleModalWindow={toggleModalWindow}
                 sortingType={sortingType}
@@ -39,4 +53,5 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default React.memo(connect(mapStateToProps, mapDispatchToProps)(MoviesList));
+// export default React.memo(connect(mapStateToProps, mapDispatchToProps)(withRouter(MoviesList)));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MoviesList));

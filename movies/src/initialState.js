@@ -12,6 +12,7 @@ export const INITIAL_STATE = {
         sortingType: 'none',
         filterTypeArray: [],
         searchingValues: null,
+        query: null,
     }
 };
 

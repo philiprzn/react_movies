@@ -11,7 +11,6 @@ function movies(state = INITIAL_STATE.movies, action = {}) {
             return [...state, action.payload];
         case ACTIONS.EDIT_MOVIE:
             const { id, title, description, releaseDate } = action.payload;
-
             return state.map((movie, index) => {
                 return movie.id === id ? {...movie, title, description, releaseDate} : movie
             });

@@ -28,7 +28,12 @@ function app(state = apa, action = {calledMovieId: null, movieToEdit: null}) {
             return {
                 ...state,
                 searchingValues: action.payload
-            }
+            };
+        case ACTIONS.CHANGE_QUERY:
+            return {
+                ...state,
+                query: action.payload
+            };
         default:
             return state;
     }
