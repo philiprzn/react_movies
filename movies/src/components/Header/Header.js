@@ -19,14 +19,6 @@ const Header = (props) => {
 
     const [inputValue, setInputValue] = useState('');
 
-    // const [query, setQuery] = useState('');
-    /* useEffect(() => {
-         const params = new URLSearchParams(location.search);
-
-         const q = params.get('q');
-         setQuery(q ? q : '/');
-     }, []);*/
-
     const submitAction = (e) => {
         e.preventDefault();
 
@@ -34,7 +26,7 @@ const Header = (props) => {
 
         History.push(`/?q=${query}`);
 
-        props.onGetMovies(inputValue);
+        props.onGetMovies();
         // props.onUpdateQuery(query);
         setInputValue('');
     };

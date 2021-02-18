@@ -29,12 +29,8 @@ export const getMovies = () => {
     }
 };
 
-export const asyncGetMovies = (value = 'all') => dispatch => (setTimeout(() => {
-    const searchingMovies = value.toLowerCase() === 'all'
-        ? movies
-        : movies.filter(movie => ~movie.title.toLowerCase().indexOf(value));
-
-    dispatch({type: "GET_MOVIES", payload: searchingMovies})
+export const asyncGetMovies = () => dispatch => (setTimeout(() => {
+    dispatch({type: "GET_MOVIES", payload: movies})
 }, 200));
 
 

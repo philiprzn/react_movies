@@ -6,45 +6,26 @@ import {asyncGetMovies} from "../../store/actions/movies";
 import {movies} from "../../initialState";
 import useQuery from "../../customHooks/useQuery/useQuery";
 import {SORTING_HANDLER_FUNCTIONS} from "../../api/sortingHandlerFunctions";
-
-import {
-    BrowserRouter as Router,
-    Switch, Route, Link,
-    NavLink, useParams,
-    useLocation, Redirect, withRouter
-} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 
 function MoviesList(props) {
-    const {movies, app, toggleModalWindow, history, location, match} = props;
+    const {movies, app, toggleModalWindow, location} = props;
     const {sortingType, filterTypeArray, searchingValues} = app;
-
-    let FCNPARAMS = useLocation();
 
     useEffect(() => {
         props.onGetMovies();
     }, []);
 
-    // const params = useQuery();
-    const params = new URLSearchParams(location.search);
-    const q = params.get('q') || 'all';
-    // const q = params.get('q');
+    const params = useQuery();
+    const q = params.get('q');
 
-    console.log('================================');
-    console.log('MoviesList FCNPARAMS', FCNPARAMS);
+    let searchingMovies = [];
 
-    console.log('MoviesList location', location);
-    console.log('MoviesList match', match);
-    console.log('MoviesList history', history);
-    console.log('================================');
-
-
-    useEffect(() => {
-        console.log('useEffect params', q);
-    }, [params]);
-    
-    const searchingMovies = q.toLowerCase() === 'all'
-        ? movies
-        : movies.filter(movie => ~movie.title.toLowerCase().indexOf(q));
+    if (q) {
+        searchingMovies = q.toLowerCase() === 'all'
+            ? movies
+            : movies.filter(movie => ~movie.title.toLowerCase().indexOf(q));
+    }
 
     const moviesForRender = useMemo(() => filterTypeArray.length === 0
         ? [...searchingMovies]
@@ -64,9 +45,6 @@ function MoviesList(props) {
             <MoviesListView
                 movies={filteredMovies}
                 toggleModalWindow={toggleModalWindow}
-                // filterTypeArray={filterTypeArray}
-                // sortingType={sortingType}
-                // searchingValues={searchingValues}
             />
         </>
     );
@@ -85,5 +63,4 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MoviesList));
-// export default React.memo(connect(mapStateToProps, mapDispatchToProps)(withRouter(MoviesList)));
+export default React.memo(connect(mapStateToProps, mapDispatchToProps)(withRouter(MoviesList)));
