@@ -2,8 +2,21 @@ import React from 'react';
 import { addMovie, deleteMovie, editMovie, getMovies } from './movies';
 import constants from './../../store/actionTypes';
 import {render, screen} from "@testing-library/react";
+import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import { movies } from "../../initialState";
 
 const {ADD_MOVIE, EDIT_MOVIE, DELETE_MOVIE, GET_MOVIES} = constants;
+
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
+
+function fetchData () {
+    return dispatch => {
+        return Promise.resolve(movies)
+            .then((response) => dispatch({type: "GET_MOVIES", payload: response}))
+    };
+}
 
 describe('Movies action testing', () => {
 
@@ -69,11 +82,13 @@ describe('Movies action testing', () => {
         expect(deleteMovie(movieToDeleteId)).toEqual(expectedAction);
     });
 
-    it('should create an action to get movies', () => {
-        const expectedAction = {
-            type: GET_MOVIES,
-        }
+    it('should create an action to get movies async', () => {
+        const store = mockStore({})
 
-        expect(getMovies()).toEqual(expectedAction);
-    });
+        return store.dispatch(fetchData())
+            .then(() => {
+                const actions = store.getActions()
+                expect(actions[0]).toEqual({type: "GET_MOVIES", payload: movies})
+            })
+    })
 })
