@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import './addMovieModalWindow.css'
+// import './addMovieModalWindow.css';
 import {connect} from "react-redux";
 import {toggleModalWindow} from "../../store/actions/app";
 import createMovie from "../../api/createMovie";
@@ -63,7 +63,8 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(null, mapDispatchToProps)(AddMovieModalWindow);
+// export default connect(null, mapDispatchToProps)(AddMovieModalWindow);
+export default AddMovieModalWindow;
 
 /*<>
 <div>

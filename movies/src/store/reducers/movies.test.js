@@ -3,9 +3,7 @@ import movies from './movies';
 import { addMovie, deleteMovie, editMovie } from './../actions/movies';
 import {render, screen} from "@testing-library/react";
 
-
 describe('Movies reducer Testing', () => {
-
     const state = [
         {
             id: 'movie1',
