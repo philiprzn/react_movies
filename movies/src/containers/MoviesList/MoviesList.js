@@ -10,14 +10,38 @@ import {SORTING_HANDLER_FUNCTIONS} from "../../api/sortingHandlerFunctions";
 function MoviesList(props) {
     const {movies, app, toggleModalWindow, location} = props;
     const {sortingType, filterTypeArray, searchingValues} = app;
-    const params = useQuery();
-    const q = params.get('q');
+    /*const params = useQuery();
+    const q = params.get('q');*/
+
+    const [searchingMovies, setSearchingMovies] = useState(movies);
 
     useEffect(() => {
         props.onGetMovies();
     }, []);
 
-    let searchingMovies = [];
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const q = params.get('q');
+        let searchedMovies = q
+            ? movies.filter (movie => movie.title.toLowerCase().includes(q))
+            : movies;
+
+        if (filterTypeArray.length > 0) {
+            searchedMovies = searchedMovies.filter(movie =>
+                movie.genre.some(item =>
+                    filterTypeArray.some(value => value === item)
+                )
+            );
+        }
+
+        if ( sortingType !== 'none') {
+            searchedMovies = [...searchedMovies].sort(SORTING_HANDLER_FUNCTIONS[sortingType]);
+        }
+
+        setSearchingMovies(searchedMovies);
+    }, [movies, location.search, filterTypeArray, sortingType]);
+
+    /*let searchingMovies = [];
 
     if (q) {
         searchingMovies = q.toLowerCase() === 'all'
@@ -36,12 +60,12 @@ function MoviesList(props) {
     const filteredMovies = useMemo(() => sortingType === 'none' ?
         moviesForRender
         : [...moviesForRender.sort(SORTING_HANDLER_FUNCTIONS[sortingType])]
-        , [movies, sortingType, filterTypeArray, searchingValues]);
+        , [movies, sortingType, filterTypeArray, searchingValues]);*/
 
     return (
         <>
             <MoviesListView
-                movies={filteredMovies}
+                movies={searchingMovies}
                 toggleModalWindow={toggleModalWindow}
             />
         </>

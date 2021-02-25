@@ -25,7 +25,7 @@ const Header = (props) => {
 
         History.push(`/?q=${query}`);
 
-        props.onGetMovies();
+        // props.onGetMovies();
         // props.onUpdateQuery(query);
         setInputValue('');
     };
