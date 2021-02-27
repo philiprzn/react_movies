@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, useState} from "react";
 // import './addMovieModalWindow.css';
 import {connect} from "react-redux";
 import {toggleModalWindow} from "../../store/actions/app";
@@ -24,6 +24,7 @@ const TextField = ({ label, ...props }) => {
 
 function AddMovieModalWindow (props) {
     const {toggleModalWindow, addMovie} = props;
+    const [result, setResult] = useState('')
 
     const handleSubmit = (values) => {
         addMovie(createMovie(values));
@@ -50,7 +51,10 @@ function AddMovieModalWindow (props) {
                         <TextField data-testid="textField" name="releaseDate" type="text" label="ReleaseDate" />
                         <button type="submit" className="button">Submit</button>
                         <button onClick={toggleModalWindow} className="button close-button">Close</button>
+
+                        <Field as="textarea" value={result} rows={4} />
                     </Form>
+
                 )}
             </Formik>
         </div>

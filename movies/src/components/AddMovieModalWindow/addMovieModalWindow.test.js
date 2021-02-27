@@ -1,5 +1,5 @@
 import React from "react";
-import {render, screen, within} from "@testing-library/react";
+import {render, screen, within, fireEvent} from "@testing-library/react";
 import renderer from 'react-test-renderer';
 import AddMovieModalWindow from "./AddMovieModalWindow";
 
@@ -64,11 +64,44 @@ describe('AddMovieModalWindow testing', () => {
         )
     })
 
-    it('submits correct values', () => {
+    it('submits correct values', async () => {
         const { container } = render(<AddMovieModalWindow />)
         const title = container.querySelector('input[name="title"]')
         const description = container.querySelector('input[name="description"]')
         const releaseDate = container.querySelector('input[name="releaseDate"]')
         const submit = container.querySelector('button[type="submit"]')
+        const results = container.querySelector("textarea");
+
+        await wait(() => {
+            fireEvent.change(title, {
+                target: {
+                    value: "mocktitle"
+                }
+            })
+        })
+
+        await wait(() => {
+            fireEvent.change(description, {
+                target: {
+                    value: "mockdescription"
+                }
+            })
+        })
+
+        await wait(() => {
+            fireEvent.change(releaseDate, {
+                target: {
+                    value: "mockreleaseDate"
+                }
+            })
+        })
+
+        await wait(() => {
+            fireEvent.click(submit)
+        })
+
+        expect(results.innerHTML).toBe(
+            '{"title":"mocktitle","description":"mockdescription","releaseDate":"mockreleaseDate"}'
+        )
     })
 })
