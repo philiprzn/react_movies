@@ -11,7 +11,8 @@ const TextField = ({ label, ...props }) => {
     const [field, meta, helpers] = useField(props);
     return (
         <>
-            <label>{label}</label>
+            {/*<label data-testId={props["data-testid"]}>{label}</label>*/}
+            <label testid={props["testid"]}>{label}</label>
             <br/>
             <input {...field} {...props} />
             <br/>
@@ -43,10 +44,10 @@ function AddMovieModalWindow (props) {
                     validationSchema={validationSchema}
             >
                 {(props) => (
-                    <Form>
-                        <TextField name="title" type="text" label="Title" placeholder='type title here'/>
-                        <TextField name="description" type="text" label="Description" />
-                        <TextField name="releaseDate" type="text" label="ReleaseDate" />
+                    <Form data-testid="addMovieForm">
+                        <TextField data-testid="textField" name="title" type="text" label="Title" placeholder='type title here'/>
+                        <TextField data-testid="textField" name="description" type="text" label="Description" />
+                        <TextField data-testid="textField" name="releaseDate" type="text" label="ReleaseDate" />
                         <button type="submit" className="button">Submit</button>
                         <button onClick={toggleModalWindow} className="button close-button">Close</button>
                     </Form>
