@@ -7,7 +7,6 @@ import {useLocation} from "react-router-dom";
 import History from "../History/History";
 import {handleSearchChange, handleQueryChange} from "../../store/actions/app";
 import {asyncGetMovies} from "../../store/actions/movies";
-import useQuery from "../../customHooks/useQuery/useQuery";
 
 const Header = (props) => {
     const {app, toggleModalWindow, movies} = props;
