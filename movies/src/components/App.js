@@ -47,11 +47,6 @@ const App = (props) => {
 
                     <Switch>
                         {/*<Route exact path="/"><Home /></Route>*/}
-                        <Route exact path="/">
-                            <>
-                                <Header />
-                            </>
-                        </Route>
                         {/*<Route path="/about"><About /></Route>
                         <Route path="/users"><Users /></Route>
                         <Route path="/user/:id"><User/></Route>*/}
@@ -59,6 +54,7 @@ const App = (props) => {
                         {/*<Route exact path="/search/:query"><Search/></Route>*/}
                         {/*<Redirect exact from='/' to='/search' />*/}
 
+                        <Route exact path="/"><Header /></Route>
                         <Route exact path="/film/:id" render={({location}) => <MovieDetails />}/>
                         <Route path="/404"><NotFound /></Route>
                         <Redirect from='*' to='/404' />

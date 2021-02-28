@@ -7,9 +7,14 @@ import {connect} from "react-redux";
 const DeleteMovieModalWindow = (props) => {
     const { app, toggleModalWindow, deleteMovie } = props;
 
+    const handleDelete = () => {
+        deleteMovie(app.calledMovieId);
+        toggleModalWindow();
+    };
+
     return (
         <div className="delete-modal-window">
-            <button onClick={() => deleteMovie(app.calledMovieId)} className="button">Delete Movie</button>
+            <button onClick={handleDelete} className="button">Delete Movie</button>
             <button onClick={toggleModalWindow} className="button close-button">Close</button>
         </div>
     )

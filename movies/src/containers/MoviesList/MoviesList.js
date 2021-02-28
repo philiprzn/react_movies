@@ -1,25 +1,48 @@
 import React, {useState, useEffect, useMemo, useCallback} from 'react';
 import MoviesListView from "./MoviesListView";
-import {toggleModalWindow} from "../../store/actions/app";
 import {connect} from "react-redux";
+import {toggleModalWindow} from "../../store/actions/app";
 import {asyncGetMovies} from "../../store/actions/movies";
-import {movies} from "../../initialState";
+import {withRouter} from "react-router-dom";
 import useQuery from "../../customHooks/useQuery/useQuery";
 import {SORTING_HANDLER_FUNCTIONS} from "../../api/sortingHandlerFunctions";
-import {withRouter} from "react-router-dom";
 
 function MoviesList(props) {
     const {movies, app, toggleModalWindow, location} = props;
     const {sortingType, filterTypeArray, searchingValues} = app;
+    const params = useQuery();
+    const q = params.get('q');
+
+    const [searchingMovies, setSearchingMovies] = useState([]);
 
     useEffect(() => {
         props.onGetMovies();
     }, []);
 
-    const params = useQuery();
-    const q = params.get('q');
 
-    let searchingMovies = [];
+     useEffect(() => {
+         if (q) {
+             let searchedMovies = q.toLowerCase() === 'all'
+                 ? movies
+                 : movies.filter (movie => movie.title.toLowerCase().includes(q));
+
+             if (filterTypeArray.length > 0) {
+                 searchedMovies = searchedMovies.filter(movie =>
+                     movie.genre.some(item =>
+                         filterTypeArray.some(value => value === item)
+                     )
+                 );
+             }
+
+             if ( sortingType !== 'none') {
+                 searchedMovies = [...searchedMovies].sort(SORTING_HANDLER_FUNCTIONS[sortingType]);
+             }
+
+             setSearchingMovies(searchedMovies);
+         }
+    }, [movies, location.search, filterTypeArray, sortingType]);
+
+    /*let searchingMovies = [];
 
     if (q) {
         searchingMovies = q.toLowerCase() === 'all'
@@ -31,19 +54,18 @@ function MoviesList(props) {
         ? [...searchingMovies]
         : searchingMovies.filter(movie => {
             return movie.genre.some(item => {
-                return filterTypeArray.some(value => value === item);
-            });
+                return filterTypeArray.some(value => value === item);});
     }), [searchingMovies, filterTypeArray]);
 
-    const filteredMovies = useMemo(() => sortingType === 'none' ?
-        moviesForRender
+    const filteredMovies = useMemo(() => sortingType === 'none'
+        ? moviesForRender
         : [...moviesForRender.sort(SORTING_HANDLER_FUNCTIONS[sortingType])]
-        , [movies, sortingType, filterTypeArray, searchingValues]);
+        , [movies, sortingType, filterTypeArray, searchingValues]);*/
 
     return (
         <>
             <MoviesListView
-                movies={filteredMovies}
+                movies={searchingMovies}
                 toggleModalWindow={toggleModalWindow}
             />
         </>
@@ -63,4 +85,5 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default React.memo(connect(mapStateToProps, mapDispatchToProps)(withRouter(MoviesList)));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MoviesList));
+// export default React.memo(connect(mapStateToProps, mapDispatchToProps)(withRouter(MoviesList)));

@@ -8,8 +8,6 @@ import History from "../History/History";
 import {handleSearchChange, handleQueryChange} from "../../store/actions/app";
 import {asyncGetMovies} from "../../store/actions/movies";
 
-const useQuery = () => new URLSearchParams(useLocation().search);
-
 const Header = (props) => {
     const {app, toggleModalWindow, movies} = props;
     const {profileMenuData, title, searchingValues} = app;
@@ -26,7 +24,7 @@ const Header = (props) => {
 
         History.push(`/?q=${query}`);
 
-        props.onGetMovies();
+        // props.onGetMovies();
         // props.onUpdateQuery(query);
         setInputValue('');
     };
