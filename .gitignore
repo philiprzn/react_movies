@@ -4,3 +4,4 @@
 node_modules
 build
 package-lock.json
+/movies/src/components/AddMovieModalWindow/__snapshots__/addMovieModalWindow.test.js.snap
