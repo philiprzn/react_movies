@@ -42,10 +42,10 @@ function AddMovieModalWindow (props) {
                         }}
                     validateOnBlur
                     validationSchema={validationSchema}
-                    // onSubmit={values => handleSubmit(values)}
-                    onSubmit={(values, actions) => {
+                    onSubmit={values => handleSubmit(values)}
+                    /*onSubmit={(values, actions) => {
                         setResult(JSON.stringify(values))
-                    }}
+                    }}*/
             >
                 {(props) => (
                     <Form data-testid="addMovieForm">
