@@ -72,6 +72,7 @@ describe('AddMovieModalWindow testing', () => {
         const releaseDate = container.querySelector('input[name="releaseDate"]')
         const submit = container.querySelector('button[type="submit"]')
         const results = container.querySelector("textarea");
+        const resultString = '{"title":"mocktitle","description":"mockdescription","releaseDate":"mockreleaseDate"}';
 
         await waitFor(() => {
             fireEvent.change(title, {
@@ -97,6 +98,12 @@ describe('AddMovieModalWindow testing', () => {
             })
         })
 
+            fireEvent.change(title, {
+                target: {
+                    value: "newTitle"
+                }
+            })
+
         await waitFor(() => {
             fireEvent.click(submit)
         })
@@ -104,8 +111,7 @@ describe('AddMovieModalWindow testing', () => {
         screen.debug();
         // screen.getByTestId('textArea')
 
-        expect(results.value).toBe(
-            '{"title":"mocktitle","description":"mockdescription","releaseDate":"mockreleaseDate"}'
-        )
+
+        expect(screen.getByDisplayValue(resultString)).toBeInTheDocument();
     })
 })

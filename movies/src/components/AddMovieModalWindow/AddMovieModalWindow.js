@@ -42,10 +42,10 @@ function AddMovieModalWindow (props) {
                         }}
                     validateOnBlur
                     validationSchema={validationSchema}
-                    onSubmit={values => handleSubmit(values)}
-                    /*onSubmit={(values, actions) => {
+                    // onSubmit={values => handleSubmit(values)}
+                    onSubmit={(values, actions) => {
                         setResult(JSON.stringify(values))
-                    }}*/
+                    }}
             >
                 {(props) => (
                     <Form data-testid="addMovieForm">
@@ -55,7 +55,8 @@ function AddMovieModalWindow (props) {
                         <button type="submit" className="button">Submit</button>
                         <button onClick={toggleModalWindow} className="button close-button">Close</button>
 
-                        <Field data-testid="textArea" as="textarea" value={result} rows={4}/>
+                        {/*<Field data-testid="textArea" as="textarea" value={result} rows={4}/>*/}
+                        <span data-testid="textArea" style={{color: 'white'}}>{result}</span>
                     </Form>
 
                 )}
