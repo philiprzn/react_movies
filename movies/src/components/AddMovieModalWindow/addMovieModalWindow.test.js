@@ -1,7 +1,8 @@
 import React from "react";
-import {render, screen, within, fireEvent} from "@testing-library/react";
+import {render, screen, within, fireEvent, waitFor} from "@testing-library/react";
 import renderer from 'react-test-renderer';
 import AddMovieModalWindow from "./AddMovieModalWindow";
+// import "@babel/polyfill";
 
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -17,8 +18,8 @@ describe('AddMovieModalWindow testing', () => {
 
     it('AddMovieModalWindow renders a <TextField />', () => {
         const { getAllByTestId, getByTestId } = render(<AddMovieModalWindow />);
-        const addMovieForm = getByTestId('addMovieForm')
-        const textFieldsInForm = within(addMovieForm).getAllByTestId('textField')
+        const addMovieForm = getByTestId('addMovieForm');
+        const textFieldsInForm = within(addMovieForm).getAllByTestId('textField');
         expect(textFieldsInForm.length).toBe(3);
     });
 
@@ -72,7 +73,7 @@ describe('AddMovieModalWindow testing', () => {
         const submit = container.querySelector('button[type="submit"]')
         const results = container.querySelector("textarea");
 
-        await wait(() => {
+        await waitFor(() => {
             fireEvent.change(title, {
                 target: {
                     value: "mocktitle"
@@ -80,7 +81,7 @@ describe('AddMovieModalWindow testing', () => {
             })
         })
 
-        await wait(() => {
+        await waitFor(() => {
             fireEvent.change(description, {
                 target: {
                     value: "mockdescription"
@@ -88,7 +89,7 @@ describe('AddMovieModalWindow testing', () => {
             })
         })
 
-        await wait(() => {
+        await waitFor(() => {
             fireEvent.change(releaseDate, {
                 target: {
                     value: "mockreleaseDate"
@@ -96,11 +97,14 @@ describe('AddMovieModalWindow testing', () => {
             })
         })
 
-        await wait(() => {
+        await waitFor(() => {
             fireEvent.click(submit)
         })
 
-        expect(results.innerHTML).toBe(
+        screen.debug();
+        // screen.getByTestId('textArea')
+
+        expect(results.value).toBe(
             '{"title":"mocktitle","description":"mockdescription","releaseDate":"mockreleaseDate"}'
         )
     })

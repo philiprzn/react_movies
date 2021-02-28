@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {toggleModalWindow} from "../../store/actions/app";
 import createMovie from "../../api/createMovie";
 import {addMovie} from "../../store/actions/movies";
-import { useField, Form, Formik } from "formik";
+import { useField, Form, Field, Formik } from "formik";
 import { validationSchema } from "../../api/formik/validationSchema";
 
 const TextField = ({ label, ...props }) => {
@@ -41,8 +41,11 @@ function AddMovieModalWindow (props) {
                         releaseDate: ''
                         }}
                     validateOnBlur
-                    onSubmit={values => handleSubmit(values)}
                     validationSchema={validationSchema}
+                    onSubmit={values => handleSubmit(values)}
+                    /*onSubmit={(values, actions) => {
+                        setResult(JSON.stringify(values))
+                    }}*/
             >
                 {(props) => (
                     <Form data-testid="addMovieForm">
@@ -52,7 +55,7 @@ function AddMovieModalWindow (props) {
                         <button type="submit" className="button">Submit</button>
                         <button onClick={toggleModalWindow} className="button close-button">Close</button>
 
-                        <Field as="textarea" value={result} rows={4} />
+                        <Field data-testid="textArea" as="textarea" value={result} rows={4}/>
                     </Form>
 
                 )}
