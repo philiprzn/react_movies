@@ -49,7 +49,7 @@ function AddMovieModalWindow (props) {
             >
                 {(props) => (
                     <Form data-testid="addMovieForm">
-                        <TextField data-testid="textField" name="title" type="text" label="Title" placeholder='type title here'/>
+                        <TextField data-testid="textField" name="title" type="text" label="Title" placeholder='type here'/>
                         <TextField data-testid="textField" name="description" type="text" label="Description" />
                         <TextField data-testid="textField" name="releaseDate" type="text" label="ReleaseDate" />
                         <button type="submit" className="button">Submit</button>

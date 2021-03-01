@@ -3,7 +3,7 @@ import {render, screen, within, fireEvent, waitFor} from "@testing-library/react
 import renderer from 'react-test-renderer';
 import userEvent from '@testing-library/user-event';
 import AddMovieModalWindow from "./AddMovieModalWindow";
-// import "@babel/polyfill";
+import "@babel/polyfill";
 
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -41,14 +41,14 @@ describe('AddMovieModalWindow testing', () => {
 
     it('AddMovieModalWindow should contain placeholder with current text', function () {
         const { getByPlaceholderText } = render(<AddMovieModalWindow />);
-        const placeholder = getByPlaceholderText(/type title here/i);
+        const placeholder = getByPlaceholderText(/type here/i);
         // screen.debug();
         expect(placeholder).toBeInTheDocument();
     });
 
     test('rendering and submitting a basic Formik form', async () => {
-        const handleSubmit = jest.fn()
-        render(<AddMovieModalWindow onSubmit={handleSubmit} />)
+        const handleSubmit = jest.fn();
+        render(<AddMovieModalWindow onSubmit={handleSubmit} />);
 
         userEvent.type(screen.getByLabelText(/title/i), 'Any Title')
         userEvent.type(screen.getByLabelText(/description/i), 'Any Description')
@@ -63,7 +63,7 @@ describe('AddMovieModalWindow testing', () => {
                 description: 'Any Description',
                 releaseDate: '123',
             }, expect.anything())
-        )
+        );
     })
 
     it('submits correct values', async () => {
@@ -111,7 +111,6 @@ describe('AddMovieModalWindow testing', () => {
 
         screen.debug();
         // screen.getByTestId('textArea')
-
 
         expect(screen.getByDisplayValue(resultString)).toBeInTheDocument();
     })
