@@ -1,6 +1,7 @@
 import React from "react";
 import {render, screen, within, fireEvent, waitFor} from "@testing-library/react";
 import renderer from 'react-test-renderer';
+import userEvent from '@testing-library/user-event';
 import AddMovieModalWindow from "./AddMovieModalWindow";
 // import "@babel/polyfill";
 
